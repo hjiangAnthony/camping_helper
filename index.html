@@ -7,7 +7,7 @@
   <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="hero" id="top">
@@ -22,7 +22,8 @@
         <span class="chip" id="trip-departure"></span>
       </div>
       <nav class="hero__actions" aria-label="页面导航">
-        <a href="#map" class="button button--primary">地图</a>
+        <a href="#place-preview" class="button button--primary">景点预览</a>
+        <a href="#route-preview" class="button">路线预览</a>
         <a href="#itinerary" class="button">行程表</a>
         <a href="#places" class="button">景点</a>
         <a href="#conditions" class="button">路况/天气</a>
@@ -59,11 +60,38 @@
       <span class="status-dot">10/7 再看一次叶况</span>
     </section>
 
-    <section class="section map-section" id="map">
+    <section class="section map-section" id="place-preview">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">DAY ROUTE MAP</p>
-          <h2>每天路线概览</h2>
+          <p class="section-kicker">GOOGLE PLACE PREVIEW</p>
+          <h2>景点预览</h2>
+        </div>
+        <a id="active-place-link" class="text-button" target="_blank" rel="noopener noreferrer">在 Google Maps 打开 ↗</a>
+      </div>
+
+      <div class="map-layout">
+        <div class="google-preview-wrap">
+          <iframe
+            id="place-map-frame"
+            class="google-preview-frame"
+            title="Google Maps 景点预览"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+        <div class="map-side">
+          <div class="active-place" id="active-place"></div>
+          <div class="place-pills" id="map-place-pills"></div>
+          <p class="fine-print">这里用于查看景点位置和周边地图；真正的当天路线概览在下面的 OSM 路线预览中。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section map-section" id="route-preview">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">OSM ROUTE OVERVIEW</p>
+          <h2>路线预览</h2>
         </div>
         <a id="active-route-link" class="text-button" target="_blank" rel="noopener noreferrer">在 Google Maps 打开当天路线 ↗</a>
       </div>
@@ -162,6 +190,6 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
