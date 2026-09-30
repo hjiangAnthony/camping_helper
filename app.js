@@ -163,15 +163,25 @@ function renderDays() {
 }
 
 function renderPlaces() {
-  $("#places-grid").innerHTML = state.data.places.map(place => `
-    <article class="place-card">
-      <h3>${escapeHtml(place.name)}</h3>
-      <p class="place-card__area">${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
-      <span class="priority ${priorityClass(place.priority)}">${escapeHtml(place.priority)}</span>
-      <p class="place-card__note">${escapeHtml(place.note)}</p>
-      <div class="place-card__footer">
-        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">页内查看</button>
-        <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+  const scenicPlaces = state.data.places.filter(place => place.photo);
+  $("#places-grid").innerHTML = scenicPlaces.map(place => `
+    <article class="place-card place-card--photo">
+      <a class="place-card__image-link" href="${escapeHtml(place.photo.source)}" target="_blank" rel="noopener noreferrer" aria-label="查看 ${escapeHtml(place.name)} 照片来源">
+        <img class="place-card__image" src="${escapeHtml(place.photo.path)}" alt="${escapeHtml(place.name)} 参考照片" loading="lazy">
+      </a>
+      <div class="place-card__body">
+        <div class="place-card__top">
+          <div>
+            <h3>${escapeHtml(place.name)}</h3>
+            <p class="place-card__area">${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
+          </div>
+          <span class="priority ${priorityClass(place.priority)}">${escapeHtml(place.priority)}</span>
+        </div>
+        <p class="place-card__note">${escapeHtml(place.note)}</p>
+        <div class="place-card__footer">
+          <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">页内地图</button>
+          <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
       </div>
     </article>
   `).join("");
@@ -180,6 +190,19 @@ function renderPlaces() {
     const button = event.target.closest("[data-place-card-open]");
     if (button) setActivePlace(button.dataset.placeCardOpen, true);
   });
+
+  renderPhotoCredits(scenicPlaces);
+}
+
+function renderPhotoCredits(places) {
+  const target = $("#photo-credits-list");
+  if (!target) return;
+  target.innerHTML = places.map(place => `
+    <li>
+      <a href="${escapeHtml(place.photo.source)}" target="_blank" rel="noopener noreferrer">${escapeHtml(place.name)}</a>
+      — ${escapeHtml(place.photo.author)}, ${escapeHtml(place.photo.license)}
+    </li>
+  `).join("");
 }
 
 async function init() {
