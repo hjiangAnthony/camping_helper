@@ -20,12 +20,14 @@ Current trip: **June Lake / Mammoth · Oct 9–11, 2026**
 
 ## Maps
 
-The page uses Leaflet with the standard OpenStreetMap basemap for a lightweight day-by-day route overview.
+The public page has two separate map experiences:
 
-- Day routes are schematic polylines connecting the planned stops in fixed order.
-- They are intentionally not turn-by-turn navigation.
-- Existing Google Maps links remain the source for actual driving navigation.
-- No Google Maps API key is required.
+- **Place preview:** Google Maps iframe/search links for browsing individual destinations.
+- **Route preview:** Leaflet with the standard OpenStreetMap basemap for a lightweight Day 1 / Day 2 / Day 3 overview.
+
+OSM route lines are schematic and keep the planned stop order; they are not turn-by-turn navigation. Existing Google Maps route links remain the source for actual driving navigation.
+
+No Google Maps API key is required.
 
 ## Hosting
 
