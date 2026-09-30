@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f4efe5">
+  <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <header class="hero" id="top">
@@ -60,24 +62,22 @@
     <section class="section map-section" id="map">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">MAP</p>
-          <h2>路线与地点</h2>
+          <p class="section-kicker">DAY ROUTE MAP</p>
+          <h2>每天路线概览</h2>
         </div>
-        <a id="active-place-link" class="text-button" target="_blank" rel="noopener noreferrer">在 Google Maps 打开 ↗</a>
+        <a id="active-route-link" class="text-button" target="_blank" rel="noopener noreferrer">在 Google Maps 打开当天路线 ↗</a>
       </div>
 
+      <div id="route-day-tabs" class="day-tabs route-day-tabs" role="tablist" aria-label="路线日期"></div>
+
       <div class="map-layout">
-        <div class="map-frame-wrap">
-          <iframe
-            id="place-map-frame"
-            title="Google Maps 地点预览"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen></iframe>
+        <div class="route-map-wrap">
+          <div id="route-map" class="route-map" aria-label="OSM 当天路线概览"></div>
         </div>
         <div class="map-side">
-          <div class="active-place" id="active-place"></div>
-          <div class="place-pills" id="map-place-pills"></div>
+          <div class="route-summary" id="route-summary"></div>
+          <div class="route-stops" id="route-stops"></div>
+          <p class="fine-print">OSM 中的折线只用于看大概位置和顺序，不代表实际道路导航。开车时请使用 Google Maps 链接。</p>
         </div>
       </div>
     </section>
@@ -161,6 +161,7 @@
     <a href="#top">回到顶部 ↑</a>
   </footer>
 
-  <script src="app.js?v=3"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
