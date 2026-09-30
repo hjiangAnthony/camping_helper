@@ -1,6 +1,7 @@
 const state = {
   data: null,
   placesById: {},
+  activePlaceId: "oh-ridge",
   activeDay: 1,
   checklist: {},
   routeMap: null,
@@ -18,6 +19,10 @@ function escapeHtml(value) {
 
 function googleSearchUrl(query) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+function googleEmbedUrl(query) {
+  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 }
 
 function formatDate(dateString) {
@@ -66,6 +71,47 @@ function renderHero() {
   $("#strategy-title").textContent = state.data.strategy.title;
   $("#strategy-text").textContent = state.data.strategy.text;
 }
+
+function setActivePlace(placeId, scroll = false) {
+  const place = state.placesById[placeId];
+  if (!place || place.routeOnly) return;
+
+  state.activePlaceId = placeId;
+  $("#place-map-frame").src = googleEmbedUrl(place.query);
+  $("#active-place-link").href = googleSearchUrl(place.query);
+  $("#active-place").innerHTML = `
+    <h3>${escapeHtml(place.name)}</h3>
+    <p>${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
+    <p>${escapeHtml(place.note || "")}</p>
+    <p><strong>坐标</strong> ${place.lat}, ${place.lng}</p>
+  `;
+
+  document.querySelectorAll("[data-place-pill]").forEach(button => {
+    button.classList.toggle("is-active", button.dataset.placePill === placeId);
+  });
+
+  if (scroll) $("#place-preview").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderPlacePreview() {
+  const places = state.data.places.filter(place => !place.routeOnly);
+
+  $("#map-place-pills").innerHTML = places.map(place => `
+    <button class="place-pill" data-place-pill="${escapeHtml(place.id)}">${escapeHtml(place.name)}</button>
+  `).join("");
+
+  $("#map-place-pills").addEventListener("click", event => {
+    const button = event.target.closest("[data-place-pill]");
+    if (button) setActivePlace(button.dataset.placePill);
+  });
+
+  const initial = state.placesById[state.activePlaceId] && !state.placesById[state.activePlaceId].routeOnly
+    ? state.activePlaceId
+    : places[0]?.id;
+
+  if (initial) setActivePlace(initial);
+}
+
 
 function initRouteMap() {
   state.routeMap = L.map("route-map", {
@@ -206,7 +252,7 @@ function focusPlaceOnRoute(placeId) {
   }
 
   selectDay(targetDay.day);
-  $("#map").scrollIntoView({ behavior: "smooth", block: "start" });
+  $("#route-preview").scrollIntoView({ behavior: "smooth", block: "start" });
 
   setTimeout(() => {
     const marker = state.routeMarkerByPlaceId.get(placeId);
@@ -293,15 +339,22 @@ function renderPlaces() {
       </div>
       <p class="place-card__note">${escapeHtml(place.note)}</p>
       <div class="place-card__footer">
-        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">路线图定位</button>
+        <button class="place-link" data-place-preview="${escapeHtml(place.id)}">景点预览</button>
+        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">路线定位</button>
         <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
       </div>
     </article>
   `).join("");
 
   $("#places-grid").addEventListener("click", event => {
-    const button = event.target.closest("[data-place-card-open]");
-    if (button) focusPlaceOnRoute(button.dataset.placeCardOpen);
+    const previewButton = event.target.closest("[data-place-preview]");
+    if (previewButton) {
+      setActivePlace(previewButton.dataset.placePreview, true);
+      return;
+    }
+
+    const routeButton = event.target.closest("[data-place-card-open]");
+    if (routeButton) focusPlaceOnRoute(routeButton.dataset.placeCardOpen);
   });
 }
 
@@ -481,6 +534,7 @@ async function init() {
   state.placesById = Object.fromEntries(state.data.places.map(place => [place.id, place]));
 
   renderHero();
+  renderPlacePreview();
   initRouteMap();
   renderRouteTabs();
   renderDays();
