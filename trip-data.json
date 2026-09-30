@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "1.0",
+  "trip": {
+    "title": "Eastern Sierra 秋色露营",
+    "eyebrow": "Oct 9–11, 2026 · SJC → US-120 → June Lake",
+    "startDate": "2026-10-09",
+    "endDate": "2026-10-11",
+    "baseCamp": "Oh Ridge Campground",
+    "departure": "周五 10:00 从 SJC 出发",
+    "return": "周日 12:00 从营地出发返程",
+    "routeSummary": "SJC → CA-120 / Tioga Pass → Lee Vining → Oh Ridge → June Lake Loop → Mammoth Lakes Basin → CA-120 → SJC"
+  },
+  "strategy": {
+    "title": "周六叶况策略",
+    "text": "10/10 先从 June Lake Loop 开始。若 10/7 最新叶况显示 June Lake 已明显进入好状态，就在 Loop 多留时间；若仍偏绿，则提早南下，把更多时间给 Mammoth Lakes Basin。",
+    "checkDate": "2026-10-07"
+  },
+  "places": [
+    {
+      "id": "oh-ridge",
+      "name": "Oh Ridge Campground",
+      "area": "June Lake",
+      "category": "营地",
+      "priority": "基地",
+      "lat": 37.7992,
+      "lng": -119.0713,
+      "query": "Oh Ridge Campground, June Lake, CA",
+      "note": "两晚住宿基地；周日 12:00 离营。"
+    },
+    {
+      "id": "june-lake",
+      "name": "June Lake",
+      "area": "June Lake Loop",
+      "category": "湖景",
+      "priority": "必去",
+      "lat": 37.7798,
+      "lng": -119.0755,
+      "query": "June Lake, CA",
+      "note": "靠近营地，适合晨间和返营前快速停留。"
+    },
+    {
+      "id": "gull-lake",
+      "name": "Gull Lake",
+      "area": "June Lake Loop",
+      "category": "湖景",
+      "priority": "可删",
+      "lat": 37.7756,
+      "lng": -119.0833,
+      "query": "Gull Lake, June Lake, CA",
+      "note": "活动周末可能更热闹；时间紧时可略过。"
+    },
+    {
+      "id": "silver-lake",
+      "name": "Silver Lake",
+      "area": "June Lake Loop",
+      "category": "秋色 / 湖景",
+      "priority": "必去",
+      "lat": 37.7773,
+      "lng": -119.1255,
+      "query": "Silver Lake, June Lake, CA",
+      "note": "周六重点之一，下午或傍晚适合再回来一次。"
+    },
+    {
+      "id": "grant-lake",
+      "name": "Grant Lake",
+      "area": "June Lake Loop",
+      "category": "湖景",
+      "priority": "可删",
+      "lat": 37.813,
+      "lng": -119.1049,
+      "query": "Grant Lake, June Lake, CA",
+      "note": "适合短停；若叶况或光线一般就直接跳过。"
+    },
+    {
+      "id": "mammoth",
+      "name": "Mammoth Lakes",
+      "area": "Mammoth",
+      "category": "补给",
+      "priority": "补给点",
+      "lat": 37.6485,
+      "lng": -118.9721,
+      "query": "Mammoth Lakes, CA",
+      "note": "午餐、咖啡、加油和营地补给。"
+    },
+    {
+      "id": "twin-lakes",
+      "name": "Twin Lakes",
+      "area": "Mammoth Lakes Basin",
+      "category": "湖景 / 秋色",
+      "priority": "必去",
+      "lat": 37.6217,
+      "lng": -119.0072,
+      "query": "Twin Lakes, Mammoth Lakes, CA",
+      "note": "Mammoth 段第一站，适合短步行和湖面景色。"
+    },
+    {
+      "id": "lake-mary",
+      "name": "Lake Mary",
+      "area": "Mammoth Lakes Basin",
+      "category": "湖景",
+      "priority": "推荐",
+      "lat": 37.6034,
+      "lng": -119.0026,
+      "query": "Lake Mary, Mammoth Lakes, CA",
+      "note": "与 Lake George 顺路，可按停车和叶况调整。"
+    },
+    {
+      "id": "lake-george",
+      "name": "Lake George",
+      "area": "Mammoth Lakes Basin",
+      "category": "湖景 / 秋色",
+      "priority": "必去",
+      "lat": 37.6005,
+      "lng": -119.0118,
+      "query": "Lake George, Mammoth Lakes, CA",
+      "note": "Mammoth 段高优先级终点。"
+    },
+    {
+      "id": "lee-vining",
+      "name": "Lee Vining",
+      "area": "US-395 / Tioga",
+      "category": "补给",
+      "priority": "机动",
+      "lat": 37.9577,
+      "lng": -119.1199,
+      "query": "Lee Vining, CA",
+      "note": "周五晚或周日返程前可加油、补水。"
+    },
+    {
+      "id": "tenaya-lake",
+      "name": "Tenaya Lake",
+      "area": "Yosemite / Tioga Road",
+      "category": "返程顺路",
+      "priority": "可删",
+      "lat": 37.8399,
+      "lng": -119.5404,
+      "query": "Tenaya Lake, Yosemite National Park",
+      "note": "仅周日返程顺路短停，不安排徒步。"
+    },
+    {
+      "id": "olmsted-point",
+      "name": "Olmsted Point",
+      "area": "Yosemite / Tioga Road",
+      "category": "返程顺路",
+      "priority": "推荐",
+      "lat": 37.8107,
+      "lng": -119.4852,
+      "query": "Olmsted Point, Yosemite National Park",
+      "note": "停车方便时短停 10–15 分钟即可。"
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-10-09",
+      "title": "SJC → US-120 → Oh Ridge",
+      "subtitle": "纯赶路日",
+      "routeLabel": "打开周五导航",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&origin=San+Jose+International+Airport,+CA&destination=Oh+Ridge+Campground,+June+Lake,+CA&travelmode=driving&waypoints=Oakdale,+CA%7CGroveland,+CA%7CLee+Vining,+CA",
+      "items": [
+        {
+          "time": "10:00",
+          "type": "drive",
+          "title": "从 SJC 出发",
+          "detail": "走 Central Valley 接 CA-120。周五不安排 Yosemite 景点，核心目标是白天尽量多赶路。",
+          "placeIds": []
+        },
+        {
+          "time": "中午",
+          "type": "stop",
+          "title": "Oakdale / Groveland 一带补给",
+          "detail": "午餐、加油、厕所。进入高山路段前把油和水处理好。",
+          "placeIds": []
+        },
+        {
+          "time": "下午–傍晚",
+          "type": "drive",
+          "title": "CA-120 / Tioga Pass",
+          "detail": "穿越 Yosemite 高山区，不做观景停留；根据实际路况保持机动。",
+          "placeIds": []
+        },
+        {
+          "time": "傍晚 / 晚间",
+          "type": "stop",
+          "title": "Lee Vining 机动补给",
+          "detail": "如果需要加油或补水，在进入 June Lake 前处理。",
+          "placeIds": [
+            "lee-vining"
+          ]
+        },
+        {
+          "time": "晚间",
+          "type": "camp",
+          "title": "抵达 Oh Ridge Campground",
+          "detail": "搭帐篷、简单晚餐、早点休息，为周六完整游玩日留体力。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-10-10",
+      "title": "June Lake Loop + Mammoth Lakes Basin",
+      "subtitle": "主游玩日",
+      "routeLabel": "打开周六主路线",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&origin=Oh+Ridge+Campground,+June+Lake,+CA&destination=Oh+Ridge+Campground,+June+Lake,+CA&travelmode=driving&waypoints=Silver+Lake,+June+Lake,+CA%7CTwin+Lakes,+Mammoth+Lakes,+CA%7CLake+George,+Mammoth+Lakes,+CA",
+      "items": [
+        {
+          "time": "07:00–07:30",
+          "type": "camp",
+          "title": "早餐并出发",
+          "detail": "营地保留不动，只带当天需要的摄影、保暖和食物装备。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        },
+        {
+          "time": "07:30–10:00",
+          "type": "scenic",
+          "title": "June Lake Loop",
+          "detail": "June Lake → Gull Lake → Silver Lake → Grant Lake。以 Silver Lake 为最高优先级；Gull / Grant 都可按叶况和停车情况删除。",
+          "placeIds": [
+            "june-lake",
+            "gull-lake",
+            "silver-lake",
+            "grant-lake"
+          ]
+        },
+        {
+          "time": "10:00–10:45",
+          "type": "drive",
+          "title": "南下 Mammoth",
+          "detail": "从 June Lake 回 US-395，开往 Mammoth Lakes。",
+          "placeIds": [
+            "mammoth"
+          ]
+        },
+        {
+          "time": "11:00–14:00",
+          "type": "scenic",
+          "title": "Mammoth Lakes Basin",
+          "detail": "Twin Lakes → Lake Mary → Lake George。以短走路和观景为主，不安排长徒步。",
+          "placeIds": [
+            "twin-lakes",
+            "lake-mary",
+            "lake-george"
+          ]
+        },
+        {
+          "time": "14:00–15:00",
+          "type": "meal",
+          "title": "Mammoth 午餐 + 补给",
+          "detail": "午餐、咖啡、加油，需要的话补冰和营地食物。",
+          "placeIds": [
+            "mammoth"
+          ]
+        },
+        {
+          "time": "15:00–16:00",
+          "type": "flex",
+          "title": "Mammoth 机动时间",
+          "detail": "如果高处秋色明显就多留一小时；如果叶况一般则提早返回 June Lake。",
+          "placeIds": [
+            "mammoth",
+            "twin-lakes",
+            "lake-george"
+          ]
+        },
+        {
+          "time": "16:00–17:00",
+          "type": "drive",
+          "title": "返回 June Lake",
+          "detail": "沿 US-395 北返，准备傍晚第二轮拍照。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        },
+        {
+          "time": "17:00–日落",
+          "type": "scenic",
+          "title": "Silver Lake / June Lake 傍晚",
+          "detail": "根据上午观察结果挑一个点二刷。优先 Silver Lake；光线不好就直接回营地。",
+          "placeIds": [
+            "silver-lake",
+            "june-lake"
+          ]
+        },
+        {
+          "time": "日落后",
+          "type": "camp",
+          "title": "Oh Ridge 第二晚",
+          "detail": "晚餐、整理装备、休息。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-10-11",
+      "title": "Oh Ridge → Tioga Pass → SJC",
+      "subtitle": "轻松上午 + 返程",
+      "routeLabel": "打开周日返程",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&origin=Oh+Ridge+Campground,+June+Lake,+CA&destination=San+Jose+International+Airport,+CA&travelmode=driving&waypoints=Lee+Vining,+CA%7CTenaya+Lake,+Yosemite+National+Park%7COlmsted+Point,+Yosemite+National+Park",
+      "items": [
+        {
+          "time": "08:00–10:30",
+          "type": "camp",
+          "title": "慢早餐 + 收营",
+          "detail": "不安排远距离项目，优先把营地完整收好。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        },
+        {
+          "time": "10:30–11:40",
+          "type": "scenic",
+          "title": "June Lake 附近最后散步",
+          "detail": "只在营地附近活动，确保能按时回营地完成离开。",
+          "placeIds": [
+            "june-lake"
+          ]
+        },
+        {
+          "time": "12:00",
+          "type": "drive",
+          "title": "离开 Oh Ridge",
+          "detail": "正式开始返程。",
+          "placeIds": [
+            "oh-ridge"
+          ]
+        },
+        {
+          "time": "返程途中",
+          "type": "stop",
+          "title": "Lee Vining 加油 / 补水",
+          "detail": "根据油量决定是否停车。",
+          "placeIds": [
+            "lee-vining"
+          ]
+        },
+        {
+          "time": "下午",
+          "type": "scenic",
+          "title": "Tenaya Lake（可删）",
+          "detail": "停车顺利才停，控制在 10–20 分钟，不徒步。",
+          "placeIds": [
+            "tenaya-lake"
+          ]
+        },
+        {
+          "time": "下午",
+          "type": "scenic",
+          "title": "Olmsted Point（推荐）",
+          "detail": "顺路短停约 10–15 分钟；若返程进度落后则直接跳过。",
+          "placeIds": [
+            "olmsted-point"
+          ]
+        },
+        {
+          "time": "下午–晚间",
+          "type": "drive",
+          "title": "CA-120 → SJC",
+          "detail": "不进入 Yosemite Valley，直接经 Groveland / Central Valley 返回湾区。",
+          "placeIds": []
+        }
+      ]
+    }
+  ]
+}\n
