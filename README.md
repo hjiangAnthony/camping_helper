@@ -1,8 +1,8 @@
 # Camping Helper
 
-Public, mobile-first trip page for camping and road-trip planning.
+Public, mobile-first trip page for the June Lake / Mammoth camping trip.
 
-Current trip: **Eastern Sierra · Oct 9–11, 2026**
+Current trip: **June Lake / Mammoth · Oct 9–11, 2026**
 
 - SJC → CA-120 / Tioga Pass → Oh Ridge Campground
 - June Lake Loop
