@@ -36,14 +36,7 @@
       "lat": 37.7798,
       "lng": -119.0755,
       "query": "June Lake, CA",
-      "note": "营地旁的核心湖景，早晚都值得停。",
-      "photo": {
-        "path": "assets/photos/june-lake.jpg",
-        "fileName": "Stunning June Lake in the Fall.jpg",
-        "author": "Photographersnature / Dave Toussaint",
-        "license": "CC BY-SA 3.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Stunning_June_Lake_in_the_Fall.jpg"
-      }
+      "note": "营地旁的核心湖景，早晚都值得停。"
     },
     {
       "id": "gull-lake",
@@ -54,14 +47,7 @@
       "lat": 37.7756,
       "lng": -119.0833,
       "query": "Gull Lake, June Lake, CA",
-      "note": "Loop 上的小湖，时间紧可略过。",
-      "photo": {
-        "path": "assets/photos/gull-lake.jpg",
-        "fileName": "Gull Lake Mammoth September 2016 panorama.jpg",
-        "author": "King of Hearts",
-        "license": "CC BY-SA 4.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Gull_Lake_Mammoth_September_2016_panorama.jpg"
-      }
+      "note": "Loop 上的小湖，时间紧可略过。"
     },
     {
       "id": "silver-lake",
@@ -72,14 +58,7 @@
       "lat": 37.7773,
       "lng": -119.1255,
       "query": "Silver Lake, June Lake, CA",
-      "note": "June Lake Loop 的最高优先级之一。",
-      "photo": {
-        "path": "assets/photos/silver-lake.jpg",
-        "fileName": "Silver Lake California On A Fall Afternoon (53015906).jpeg",
-        "author": "Srihari Yamanoor",
-        "license": "CC BY 3.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Silver_Lake_California_On_A_Fall_Afternoon_(53015906).jpeg"
-      }
+      "note": "June Lake Loop 的最高优先级之一。"
     },
     {
       "id": "grant-lake",
@@ -90,14 +69,7 @@
       "lat": 37.813,
       "lng": -119.1049,
       "query": "Grant Lake, June Lake, CA",
-      "note": "顺路短停，看开阔的山湖景。",
-      "photo": {
-        "path": "assets/photos/grant-lake.jpg",
-        "fileName": "Mount Wood from Grant Lake.jpg",
-        "author": "lovz2hike",
-        "license": "CC BY-SA 2.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Mount_Wood_from_Grant_Lake.jpg"
-      }
+      "note": "顺路短停，看开阔的山湖景。"
     },
     {
       "id": "mammoth",
@@ -119,14 +91,7 @@
       "lat": 37.6217,
       "lng": -119.0072,
       "query": "Twin Lakes, Mammoth Lakes, CA",
-      "note": "Mammoth 段第一站，秋色倒影很适合拍照。",
-      "photo": {
-        "path": "assets/photos/twin-lakes.jpg",
-        "fileName": "Fall Reflection on Twin Lakes, CA 9-16 (31236262975).jpg",
-        "author": "Don Graham / inkknife_2000",
-        "license": "CC BY-SA 2.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Fall_Reflection_on_Twin_Lakes,_CA_9-16_(31236262975).jpg"
-      }
+      "note": "Mammoth 段第一站，秋色倒影很适合拍照。"
     },
     {
       "id": "lake-mary",
@@ -137,14 +102,7 @@
       "lat": 37.6034,
       "lng": -119.0026,
       "query": "Lake Mary, Mammoth Lakes, CA",
-      "note": "顺路停靠，按停车和叶况调整。",
-      "photo": {
-        "path": "assets/photos/lake-mary.jpg",
-        "fileName": "Lake Mary Mammoth September 2016.jpg",
-        "author": "King of Hearts",
-        "license": "CC BY-SA 4.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Lake_Mary_Mammoth_September_2016.jpg"
-      }
+      "note": "顺路停靠，按停车和叶况调整。"
     },
     {
       "id": "lake-george",
@@ -155,14 +113,7 @@
       "lat": 37.6005,
       "lng": -119.0118,
       "query": "Lake George, Mammoth Lakes, CA",
-      "note": "Mammoth 段重点，适合湖面倒影。",
-      "photo": {
-        "path": "assets/photos/lake-george.jpg",
-        "fileName": "Fall Morning on Lake George, Mammoth Lakes, CA 9-16 (30989839440).jpg",
-        "author": "Don Graham / inkknife_2000",
-        "license": "CC BY-SA 2.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Fall_Morning_on_Lake_George,_Mammoth_Lakes,_CA_9-16_(30989839440).jpg"
-      }
+      "note": "Mammoth 段重点，适合湖面倒影。"
     },
     {
       "id": "lee-vining",
@@ -184,14 +135,7 @@
       "lat": 37.8399,
       "lng": -119.5404,
       "query": "Tenaya Lake, Yosemite National Park",
-      "note": "周日返程顺路，10–20 分钟快停。",
-      "photo": {
-        "path": "assets/photos/tenaya-lake.jpg",
-        "fileName": "Tenaya Lake 120° pano.jpg",
-        "author": "Gregg M. Erickson / Farwestern",
-        "license": "CC BY 3.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Tenaya_Lake_120%C2%B0_pano.jpg"
-      }
+      "note": "周日返程顺路，10–20 分钟快停。"
     },
     {
       "id": "olmsted-point",
@@ -202,14 +146,7 @@
       "lat": 37.8107,
       "lng": -119.4852,
       "query": "Olmsted Point, Yosemite National Park",
-      "note": "返程短停，视野开阔；赶时间可删。",
-      "photo": {
-        "path": "assets/photos/olmsted-point.jpg",
-        "fileName": "Olmsted Point overlooking the Half Dome, Yosemite, California - panoramio.jpg",
-        "author": "David Broad",
-        "license": "CC BY 3.0",
-        "source": "https://commons.wikimedia.org/wiki/File:Olmsted_Point_overlooking_the_Half_Dome,_Yosemite,_California_-_panoramio.jpg"
-      }
+      "note": "返程短停，视野开阔；赶时间可删。"
     }
   ],
   "days": [
@@ -429,6 +366,188 @@
           "title": "CA-120 → SJC",
           "detail": "不进入 Yosemite Valley，直接经 Groveland / Central Valley 返回湾区。",
           "placeIds": []
+        }
+      ]
+    }
+  ],
+  "weather": [
+    {
+      "id": "oh-ridge-weather",
+      "name": "Oh Ridge / June Lake",
+      "lat": 37.7992,
+      "lng": -119.0713
+    },
+    {
+      "id": "mammoth-weather",
+      "name": "Mammoth Lakes",
+      "lat": 37.6485,
+      "lng": -118.9721
+    }
+  ],
+  "roadResources": [
+    {
+      "id": "caltrans-quickmap",
+      "name": "Caltrans QuickMap",
+      "url": "https://quickmap.dot.ca.gov/",
+      "detail": "查看道路关闭、事故、施工、摄像头和 chain controls。"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "sleep",
+      "title": "帐篷与睡眠",
+      "items": [
+        {
+          "id": "tent",
+          "text": "帐篷"
+        },
+        {
+          "id": "footprint",
+          "text": "地布 / footprint"
+        },
+        {
+          "id": "stakes",
+          "text": "营钉与营绳"
+        },
+        {
+          "id": "sleeping-bag",
+          "text": "适合接近 0°C 夜温的睡袋"
+        },
+        {
+          "id": "sleeping-pad",
+          "text": "保温睡垫"
+        },
+        {
+          "id": "pillow",
+          "text": "枕头 / 充气枕"
+        },
+        {
+          "id": "headlamp",
+          "text": "头灯 + 备用电池"
+        }
+      ]
+    },
+    {
+      "id": "clothing",
+      "title": "保暖衣物",
+      "items": [
+        {
+          "id": "base-layer",
+          "text": "保暖内层"
+        },
+        {
+          "id": "mid-layer",
+          "text": "抓绒 / 中层"
+        },
+        {
+          "id": "down-jacket",
+          "text": "羽绒或厚外套"
+        },
+        {
+          "id": "shell",
+          "text": "防风 / 防雨外层"
+        },
+        {
+          "id": "beanie-gloves",
+          "text": "帽子与手套"
+        },
+        {
+          "id": "warm-socks",
+          "text": "保暖袜 + 备用袜"
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "title": "食物与营地厨房",
+      "items": [
+        {
+          "id": "water",
+          "text": "饮用水"
+        },
+        {
+          "id": "stove-fuel",
+          "text": "炉头 + 燃料"
+        },
+        {
+          "id": "lighter",
+          "text": "打火机 / 点火器"
+        },
+        {
+          "id": "meals",
+          "text": "两晚晚餐 + 两天早餐"
+        },
+        {
+          "id": "snacks",
+          "text": "路上与徒步零食"
+        },
+        {
+          "id": "cook-kit",
+          "text": "锅具 / 餐具 / 杯子"
+        },
+        {
+          "id": "cooler",
+          "text": "Cooler / 冰袋"
+        },
+        {
+          "id": "trash-bags",
+          "text": "垃圾袋"
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "title": "安全与杂项",
+      "items": [
+        {
+          "id": "first-aid",
+          "text": "急救包"
+        },
+        {
+          "id": "sunscreen",
+          "text": "防晒"
+        },
+        {
+          "id": "power-bank",
+          "text": "充电宝 + 车充"
+        },
+        {
+          "id": "offline-maps",
+          "text": "离线地图"
+        },
+        {
+          "id": "reservation",
+          "text": "营地预订信息截图"
+        },
+        {
+          "id": "bear-locker",
+          "text": "食物和有气味物品全部放 bear locker"
+        }
+      ]
+    },
+    {
+      "id": "car",
+      "title": "车辆与山路",
+      "items": [
+        {
+          "id": "fuel",
+          "text": "上山前加满油"
+        },
+        {
+          "id": "tire-pressure",
+          "text": "检查胎压 / 备胎"
+        },
+        {
+          "id": "chains",
+          "text": "根据天气准备防滑链"
+        },
+        {
+          "id": "windshield",
+          "text": "玻璃水 / 雨刷状态"
+        },
+        {
+          "id": "road-check",
+          "text": "出发前检查 Tioga Road + QuickMap"
         }
       ]
     }
