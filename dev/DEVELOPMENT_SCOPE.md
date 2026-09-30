@@ -188,3 +188,11 @@ Any new third-party service that receives trip data should be called out before 
 7. Add per-day map filtering/highlighting.
 8. Validate mobile layout.
 9. Keep GitHub Pages deployment automatic from `main`.
+
+
+### 5. Road conditions, weather, and checklist
+
+- Caltrans QuickMap is linked directly rather than embedded, following Caltrans guidance.
+- Weather is loaded client-side from the National Weather Service API; no API key is required.
+- Camping Checklist is rendered from trip-data.json and checkbox state is stored only in browser localStorage.
+- No backend or shared checklist state is used.
