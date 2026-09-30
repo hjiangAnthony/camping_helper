@@ -1,9 +1,11 @@
 const state = {
   data: null,
   placesById: {},
-  activePlaceId: "oh-ridge",
   activeDay: 1,
-  checklist: {}
+  checklist: {},
+  routeMap: null,
+  routeLayer: null,
+  routeMarkerByPlaceId: new Map()
 };
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -16,10 +18,6 @@ function escapeHtml(value) {
 
 function googleSearchUrl(query) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-}
-
-function googleEmbedUrl(query) {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 }
 
 function formatDate(dateString) {
@@ -48,25 +46,14 @@ function typeLabel(type) {
   })[type] || type;
 }
 
-function setActivePlace(placeId, scroll = false) {
-  const place = state.placesById[placeId];
-  if (!place) return;
-  state.activePlaceId = placeId;
+function dayByNumber(dayNumber) {
+  return state.data.days.find(day => day.day === Number(dayNumber));
+}
 
-  $("#place-map-frame").src = googleEmbedUrl(place.query);
-  $("#active-place-link").href = googleSearchUrl(place.query);
-  $("#active-place").innerHTML = `
-    <h3>${escapeHtml(place.name)}</h3>
-    <p>${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
-    <p>${escapeHtml(place.note)}</p>
-    <p><strong>坐标</strong> ${place.lat}, ${place.lng}</p>
-  `;
-
-  document.querySelectorAll("[data-place-pill]").forEach(button => {
-    button.classList.toggle("is-active", button.dataset.placePill === placeId);
-  });
-
-  if (scroll) $("#map").scrollIntoView({ behavior: "smooth", block: "start" });
+function routePlaces(day) {
+  return (day.routePlaceIds || [])
+    .map(id => state.placesById[id])
+    .filter(Boolean);
 }
 
 function renderHero() {
@@ -80,20 +67,151 @@ function renderHero() {
   $("#strategy-text").textContent = state.data.strategy.text;
 }
 
-function renderMap() {
-  const featured = ["oh-ridge","june-lake","silver-lake","twin-lakes","lake-mary","lake-george","lee-vining","tenaya-lake","olmsted-point"];
-  $("#map-place-pills").innerHTML = featured
-    .map(id => state.placesById[id])
-    .filter(Boolean)
-    .map(place => `<button class="place-pill" data-place-pill="${escapeHtml(place.id)}">${escapeHtml(place.name)}</button>`)
-    .join("");
-
-  $("#map-place-pills").addEventListener("click", event => {
-    const button = event.target.closest("[data-place-pill]");
-    if (button) setActivePlace(button.dataset.placePill);
+function initRouteMap() {
+  state.routeMap = L.map("route-map", {
+    zoomControl: true,
+    scrollWheelZoom: true
   });
 
-  setActivePlace(state.activePlaceId);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    referrerPolicy: "origin",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(state.routeMap);
+
+  state.routeLayer = L.layerGroup().addTo(state.routeMap);
+}
+
+function markerLabelsForRoute(places) {
+  const labelsByPlaceId = new Map();
+  places.forEach((place, index) => {
+    const label = String.fromCharCode(65 + index);
+    if (!labelsByPlaceId.has(place.id)) labelsByPlaceId.set(place.id, []);
+    labelsByPlaceId.get(place.id).push(label);
+  });
+  return labelsByPlaceId;
+}
+
+function renderRoute(day) {
+  const places = routePlaces(day);
+  if (!state.routeMap || !state.routeLayer || !places.length) return;
+
+  state.routeLayer.clearLayers();
+  state.routeMarkerByPlaceId = new Map();
+
+  const latlngs = places.map(place => [place.lat, place.lng]);
+
+  L.polyline(latlngs, {
+    color: "#465846",
+    weight: 5,
+    opacity: 0.86,
+    dashArray: "10,8",
+    lineCap: "round"
+  }).addTo(state.routeLayer);
+
+  const groupedLabels = markerLabelsForRoute(places);
+
+  groupedLabels.forEach((labels, placeId) => {
+    const place = state.placesById[placeId];
+    if (!place) return;
+    const labelText = labels.join("·");
+    const width = Math.max(30, 16 + labelText.length * 7);
+
+    const icon = L.divIcon({
+      className: "route-marker-icon",
+      html: `<div class="route-marker" style="width:${width}px">${escapeHtml(labelText)}</div>`,
+      iconSize: [width, 30],
+      iconAnchor: [width / 2, 15]
+    });
+
+    const marker = L.marker([place.lat, place.lng], { icon });
+    marker.bindPopup(`
+      <strong>${escapeHtml(place.name)}</strong><br>
+      ${escapeHtml(place.note || place.area || "")}<br>
+      <a href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+    `);
+    marker.addTo(state.routeLayer);
+    state.routeMarkerByPlaceId.set(placeId, marker);
+  });
+
+  const bounds = L.latLngBounds(latlngs);
+  state.routeMap.fitBounds(bounds, {
+    padding: [28, 28],
+    maxZoom: day.day === 2 ? 11 : 8
+  });
+
+  $("#active-route-link").href = day.routeUrl;
+  $("#route-summary").innerHTML = `
+    <h3>Day ${day.day} · ${escapeHtml(day.title)}</h3>
+    <p>${places.length} 个路线节点 · OSM 示意折线</p>
+    <span class="route-status">固定顺序 · 不做路线优化</span>
+  `;
+
+  $("#route-stops").innerHTML = places.map((place, index) => `
+    <div class="route-stop">
+      <div class="route-stop__label">${String.fromCharCode(65 + index)}</div>
+      <div>
+        <strong>${escapeHtml(place.name)}</strong>
+        <span>${escapeHtml(place.area || "")}</span>
+      </div>
+    </div>
+  `).join("");
+
+  setTimeout(() => state.routeMap.invalidateSize(), 0);
+}
+
+function renderRouteTabs() {
+  $("#route-day-tabs").innerHTML = state.data.days.map(day => `
+    <button class="day-tab" role="tab" aria-selected="${day.day === state.activeDay}" data-route-day="${day.day}">
+      Day ${day.day} · ${formatDate(day.date)}
+    </button>
+  `).join("");
+
+  $("#route-day-tabs").addEventListener("click", event => {
+    const button = event.target.closest("[data-route-day]");
+    if (button) selectDay(Number(button.dataset.routeDay));
+  });
+}
+
+function updateDayUi() {
+  document.querySelectorAll("[data-day-tab]").forEach(tab => {
+    tab.setAttribute("aria-selected", String(Number(tab.dataset.dayTab) === state.activeDay));
+  });
+  document.querySelectorAll("[data-route-day]").forEach(tab => {
+    tab.setAttribute("aria-selected", String(Number(tab.dataset.routeDay) === state.activeDay));
+  });
+  document.querySelectorAll("[data-day-panel]").forEach(panel => {
+    panel.hidden = Number(panel.dataset.dayPanel) !== state.activeDay;
+  });
+}
+
+function selectDay(dayNumber) {
+  const day = dayByNumber(dayNumber);
+  if (!day) return;
+  state.activeDay = day.day;
+  updateDayUi();
+  renderRoute(day);
+}
+
+function focusPlaceOnRoute(placeId) {
+  const currentDay = dayByNumber(state.activeDay);
+  let targetDay = currentDay && (currentDay.routePlaceIds || []).includes(placeId)
+    ? currentDay
+    : state.data.days.find(day => (day.routePlaceIds || []).includes(placeId));
+
+  if (!targetDay) {
+    const place = state.placesById[placeId];
+    if (place) window.open(googleSearchUrl(place.query), "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  selectDay(targetDay.day);
+  $("#map").scrollIntoView({ behavior: "smooth", block: "start" });
+
+  setTimeout(() => {
+    const marker = state.routeMarkerByPlaceId.get(placeId);
+    if (marker) marker.openPopup();
+  }, 80);
 }
 
 function renderDays() {
@@ -150,24 +268,20 @@ function renderDays() {
 
   tabs.addEventListener("click", event => {
     const button = event.target.closest("[data-day-tab]");
-    if (!button) return;
-    state.activeDay = Number(button.dataset.dayTab);
-    document.querySelectorAll("[data-day-tab]").forEach(tab => {
-      tab.setAttribute("aria-selected", String(Number(tab.dataset.dayTab) === state.activeDay));
-    });
-    document.querySelectorAll("[data-day-panel]").forEach(panel => {
-      panel.hidden = Number(panel.dataset.dayPanel) !== state.activeDay;
-    });
+    if (button) selectDay(Number(button.dataset.dayTab));
   });
 
   panels.addEventListener("click", event => {
     const button = event.target.closest("[data-place-open]");
-    if (button) setActivePlace(button.dataset.placeOpen, true);
+    if (button) focusPlaceOnRoute(button.dataset.placeOpen);
   });
 }
 
 function renderPlaces() {
-  const places = state.data.places.filter(place => !["营地", "补给"].includes(place.category));
+  const places = state.data.places.filter(place =>
+    !place.routeOnly && !["营地", "补给"].includes(place.category)
+  );
+
   $("#places-grid").innerHTML = places.map(place => `
     <article class="place-card">
       <div class="place-card__top">
@@ -179,7 +293,7 @@ function renderPlaces() {
       </div>
       <p class="place-card__note">${escapeHtml(place.note)}</p>
       <div class="place-card__footer">
-        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">页内地图</button>
+        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">路线图定位</button>
         <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
       </div>
     </article>
@@ -187,7 +301,7 @@ function renderPlaces() {
 
   $("#places-grid").addEventListener("click", event => {
     const button = event.target.closest("[data-place-card-open]");
-    if (button) setActivePlace(button.dataset.placeCardOpen, true);
+    if (button) focusPlaceOnRoute(button.dataset.placeCardOpen);
   });
 }
 
@@ -367,11 +481,13 @@ async function init() {
   state.placesById = Object.fromEntries(state.data.places.map(place => [place.id, place]));
 
   renderHero();
-  renderMap();
+  initRouteMap();
+  renderRouteTabs();
   renderDays();
   renderPlaces();
   renderChecklist();
   renderWeather();
+  selectDay(state.activeDay);
 
   $("#weather-refresh")?.addEventListener("click", renderWeather);
 }
