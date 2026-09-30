@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "trip": {
-    "title": "Eastern Sierra 秋色露营",
-    "eyebrow": "Oct 9–11, 2026 · SJC → US-120 → June Lake",
+    "title": "June Lake & Mammoth 秋色露营",
+    "eyebrow": "10/9–10/11 · SJC → US-120 → June Lake",
     "startDate": "2026-10-09",
     "endDate": "2026-10-11",
     "baseCamp": "Oh Ridge Campground",
@@ -370,4 +370,4 @@
       ]
     }
   ]
-}\n
+}
