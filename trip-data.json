@@ -36,7 +36,14 @@
       "lat": 37.7798,
       "lng": -119.0755,
       "query": "June Lake, CA",
-      "note": "靠近营地，适合晨间和返营前快速停留。"
+      "note": "营地旁的核心湖景，早晚都值得停。",
+      "photo": {
+        "path": "assets/photos/june-lake.jpg",
+        "fileName": "Stunning June Lake in the Fall.jpg",
+        "author": "Photographersnature / Dave Toussaint",
+        "license": "CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Stunning_June_Lake_in_the_Fall.jpg"
+      }
     },
     {
       "id": "gull-lake",
@@ -47,7 +54,14 @@
       "lat": 37.7756,
       "lng": -119.0833,
       "query": "Gull Lake, June Lake, CA",
-      "note": "活动周末可能更热闹；时间紧时可略过。"
+      "note": "Loop 上的小湖，时间紧可略过。",
+      "photo": {
+        "path": "assets/photos/gull-lake.jpg",
+        "fileName": "Gull Lake Mammoth September 2016 panorama.jpg",
+        "author": "King of Hearts",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Gull_Lake_Mammoth_September_2016_panorama.jpg"
+      }
     },
     {
       "id": "silver-lake",
@@ -58,7 +72,14 @@
       "lat": 37.7773,
       "lng": -119.1255,
       "query": "Silver Lake, June Lake, CA",
-      "note": "周六重点之一，下午或傍晚适合再回来一次。"
+      "note": "June Lake Loop 的最高优先级之一。",
+      "photo": {
+        "path": "assets/photos/silver-lake.jpg",
+        "fileName": "Silver Lake California On A Fall Afternoon (53015906).jpeg",
+        "author": "Srihari Yamanoor",
+        "license": "CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Silver_Lake_California_On_A_Fall_Afternoon_(53015906).jpeg"
+      }
     },
     {
       "id": "grant-lake",
@@ -69,7 +90,14 @@
       "lat": 37.813,
       "lng": -119.1049,
       "query": "Grant Lake, June Lake, CA",
-      "note": "适合短停；若叶况或光线一般就直接跳过。"
+      "note": "顺路短停，看开阔的山湖景。",
+      "photo": {
+        "path": "assets/photos/grant-lake.jpg",
+        "fileName": "Mount Wood from Grant Lake.jpg",
+        "author": "lovz2hike",
+        "license": "CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Mount_Wood_from_Grant_Lake.jpg"
+      }
     },
     {
       "id": "mammoth",
@@ -91,7 +119,14 @@
       "lat": 37.6217,
       "lng": -119.0072,
       "query": "Twin Lakes, Mammoth Lakes, CA",
-      "note": "Mammoth 段第一站，适合短步行和湖面景色。"
+      "note": "Mammoth 段第一站，秋色倒影很适合拍照。",
+      "photo": {
+        "path": "assets/photos/twin-lakes.jpg",
+        "fileName": "Fall Reflection on Twin Lakes, CA 9-16 (31236262975).jpg",
+        "author": "Don Graham / inkknife_2000",
+        "license": "CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Fall_Reflection_on_Twin_Lakes,_CA_9-16_(31236262975).jpg"
+      }
     },
     {
       "id": "lake-mary",
@@ -102,7 +137,14 @@
       "lat": 37.6034,
       "lng": -119.0026,
       "query": "Lake Mary, Mammoth Lakes, CA",
-      "note": "与 Lake George 顺路，可按停车和叶况调整。"
+      "note": "顺路停靠，按停车和叶况调整。",
+      "photo": {
+        "path": "assets/photos/lake-mary.jpg",
+        "fileName": "Lake Mary Mammoth September 2016.jpg",
+        "author": "King of Hearts",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Lake_Mary_Mammoth_September_2016.jpg"
+      }
     },
     {
       "id": "lake-george",
@@ -113,7 +155,14 @@
       "lat": 37.6005,
       "lng": -119.0118,
       "query": "Lake George, Mammoth Lakes, CA",
-      "note": "Mammoth 段高优先级终点。"
+      "note": "Mammoth 段重点，适合湖面倒影。",
+      "photo": {
+        "path": "assets/photos/lake-george.jpg",
+        "fileName": "Fall Morning on Lake George, Mammoth Lakes, CA 9-16 (30989839440).jpg",
+        "author": "Don Graham / inkknife_2000",
+        "license": "CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Fall_Morning_on_Lake_George,_Mammoth_Lakes,_CA_9-16_(30989839440).jpg"
+      }
     },
     {
       "id": "lee-vining",
@@ -135,7 +184,14 @@
       "lat": 37.8399,
       "lng": -119.5404,
       "query": "Tenaya Lake, Yosemite National Park",
-      "note": "仅周日返程顺路短停，不安排徒步。"
+      "note": "周日返程顺路，10–20 分钟快停。",
+      "photo": {
+        "path": "assets/photos/tenaya-lake.jpg",
+        "fileName": "Tenaya Lake 120° pano.jpg",
+        "author": "Gregg M. Erickson / Farwestern",
+        "license": "CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tenaya_Lake_120%C2%B0_pano.jpg"
+      }
     },
     {
       "id": "olmsted-point",
@@ -146,7 +202,14 @@
       "lat": 37.8107,
       "lng": -119.4852,
       "query": "Olmsted Point, Yosemite National Park",
-      "note": "停车方便时短停 10–15 分钟即可。"
+      "note": "返程短停，视野开阔；赶时间可删。",
+      "photo": {
+        "path": "assets/photos/olmsted-point.jpg",
+        "fileName": "Olmsted Point overlooking the Half Dome, Yosemite, California - panoramio.jpg",
+        "author": "David Broad",
+        "license": "CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Olmsted_Point_overlooking_the_Half_Dome,_Yosemite,_California_-_panoramio.jpg"
+      }
     }
   ],
   "days": [
