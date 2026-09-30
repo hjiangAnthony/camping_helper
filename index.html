@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<meta name="referrer" content="origin">
 <title>Eastern Sierra 路线对比：US 120 / US 108 / US 395</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
@@ -23,7 +23,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
   <p><b>蓝：</b>US-120 / Tioga Pass → Lee Vining → Oh Ridge</p>
   <p><b>橙：</b>US-108 / Sonora Pass → Bridgeport → Oh Ridge</p>
   <p><b>灰黑：</b>US-395 经典景点走廊</p>
-  <p>湾区端以 San Francisco 作为示意起点；山路折线用于比较路线，不代替实时导航。底图使用 OSM 数据，由 CARTO 提供瓦片。</p>
+  <p>湾区端以 San Francisco 作为示意起点；山路折线用于比较路线，不代替实时导航。底图直接使用 OpenStreetMap 标准瓦片；此页面由 GitHub Pages 通过 HTTPS 提供。</p>
 </div>
 <div class="legend">
   <div><span class="swatch" style="background:#2563eb"></span>US-120 / Tioga Pass</div>
@@ -34,23 +34,14 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
 <script>
 const map = L.map('map').setView([38.0, -120.15], 7);
 
-const cartoVoyager = L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+const osm = L.tileLayer(
+  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    maxZoom: 19,
+    referrerPolicy: 'origin',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }
 ).addTo(map);
-
-const cartoLight = L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  {
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-  }
-);
 
 const route120 = L.layerGroup().addTo(map), route108 = L.layerGroup().addTo(map), corridor395 = L.layerGroup().addTo(map), sights = L.layerGroup().addTo(map);
 const sf=[37.7749,-122.4194], ohRidge=[37.7992,-119.0713];
@@ -84,7 +75,7 @@ L.circleMarker(sf,{radius:7,color:'#111827',fillColor:'#fff',fillOpacity:1,weigh
   .addTo(sights);
 
 L.control.layers(
-  {'OSM 数据 · CARTO Voyager': cartoVoyager, 'OSM 数据 · CARTO Light': cartoLight},
+  null,
   {'US-120 / Tioga Pass':route120,'US-108 / Sonora Pass':route108,'US-395 走廊':corridor395,'景点与营地':sights},
   {collapsed:false}
 ).addTo(map);
