@@ -1,4 +1,10 @@
-const state = { data: null, placesById: {}, activePlaceId: "oh-ridge", activeDay: 1 };
+const state = {
+  data: null,
+  placesById: {},
+  activePlaceId: "oh-ridge",
+  activeDay: 1,
+  checklist: {}
+};
 
 const $ = (selector, root = document) => root.querySelector(selector);
 
@@ -47,9 +53,7 @@ function setActivePlace(placeId, scroll = false) {
   if (!place) return;
   state.activePlaceId = placeId;
 
-  const frame = $("#place-map-frame");
-  frame.src = googleEmbedUrl(place.query);
-
+  $("#place-map-frame").src = googleEmbedUrl(place.query);
   $("#active-place-link").href = googleSearchUrl(place.query);
   $("#active-place").innerHTML = `
     <h3>${escapeHtml(place.name)}</h3>
@@ -163,25 +167,20 @@ function renderDays() {
 }
 
 function renderPlaces() {
-  const scenicPlaces = state.data.places.filter(place => place.photo);
-  $("#places-grid").innerHTML = scenicPlaces.map(place => `
-    <article class="place-card place-card--photo">
-      <a class="place-card__image-link" href="${escapeHtml(place.photo.source)}" target="_blank" rel="noopener noreferrer" aria-label="查看 ${escapeHtml(place.name)} 照片来源">
-        <img class="place-card__image" src="${escapeHtml(place.photo.path)}" alt="${escapeHtml(place.name)} 参考照片" loading="lazy">
-      </a>
-      <div class="place-card__body">
-        <div class="place-card__top">
-          <div>
-            <h3>${escapeHtml(place.name)}</h3>
-            <p class="place-card__area">${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
-          </div>
-          <span class="priority ${priorityClass(place.priority)}">${escapeHtml(place.priority)}</span>
+  const places = state.data.places.filter(place => !["营地", "补给"].includes(place.category));
+  $("#places-grid").innerHTML = places.map(place => `
+    <article class="place-card">
+      <div class="place-card__top">
+        <div>
+          <h3>${escapeHtml(place.name)}</h3>
+          <p class="place-card__area">${escapeHtml(place.area)} · ${escapeHtml(place.category)}</p>
         </div>
-        <p class="place-card__note">${escapeHtml(place.note)}</p>
-        <div class="place-card__footer">
-          <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">页内地图</button>
-          <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
-        </div>
+        <span class="priority ${priorityClass(place.priority)}">${escapeHtml(place.priority)}</span>
+      </div>
+      <p class="place-card__note">${escapeHtml(place.note)}</p>
+      <div class="place-card__footer">
+        <button class="place-link" data-place-card-open="${escapeHtml(place.id)}">页内地图</button>
+        <a class="map-open" href="${googleSearchUrl(place.query)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
       </div>
     </article>
   `).join("");
@@ -190,19 +189,168 @@ function renderPlaces() {
     const button = event.target.closest("[data-place-card-open]");
     if (button) setActivePlace(button.dataset.placeCardOpen, true);
   });
-
-  renderPhotoCredits(scenicPlaces);
 }
 
-function renderPhotoCredits(places) {
-  const target = $("#photo-credits-list");
-  if (!target) return;
-  target.innerHTML = places.map(place => `
-    <li>
-      <a href="${escapeHtml(place.photo.source)}" target="_blank" rel="noopener noreferrer">${escapeHtml(place.name)}</a>
-      — ${escapeHtml(place.photo.author)}, ${escapeHtml(place.photo.license)}
-    </li>
+function forecastDate(period) {
+  return String(period.startTime || "").slice(0, 10);
+}
+
+function renderForecastCard(location, periods, updated) {
+  const start = state.data.trip.startDate;
+  const end = state.data.trip.endDate;
+  const tripPeriods = periods.filter(period => {
+    const date = forecastDate(period);
+    return date >= start && date <= end;
+  });
+
+  const selected = tripPeriods.length ? tripPeriods.slice(0, 6) : periods.slice(0, 4);
+  const note = tripPeriods.length
+    ? "已覆盖本次出行日期"
+    : "当前预报窗口尚未覆盖 10/9–10/11";
+
+  const rows = selected.map(period => `
+    <div class="forecast-period">
+      <div>
+        <strong>${escapeHtml(period.name)}</strong>
+        <span>${escapeHtml(period.shortForecast)}</span>
+      </div>
+      <div class="forecast-temp">${escapeHtml(period.temperature)}°${escapeHtml(period.temperatureUnit)}</div>
+      <div class="forecast-wind">${escapeHtml(period.windSpeed)} · ${escapeHtml(period.windDirection)}</div>
+    </div>
   `).join("");
+
+  const nwsUrl = `https://forecast.weather.gov/MapClick.php?lat=${location.lat}&lon=${location.lng}`;
+
+  return `
+    <article class="weather-card">
+      <div class="weather-card__head">
+        <div>
+          <h4>${escapeHtml(location.name)}</h4>
+          <span>${escapeHtml(note)}</span>
+        </div>
+        <a href="${nwsUrl}" target="_blank" rel="noopener noreferrer">NWS ↗</a>
+      </div>
+      <div class="forecast-list">${rows}</div>
+      ${updated ? `<p class="weather-updated">更新：${escapeHtml(new Date(updated).toLocaleString("zh-CN"))}</p>` : ""}
+    </article>
+  `;
+}
+
+async function loadForecast(location) {
+  const pointUrl = `https://api.weather.gov/points/${location.lat},${location.lng}`;
+  const pointResponse = await fetch(pointUrl, {
+    headers: { "Accept": "application/geo+json" },
+    cache: "no-store"
+  });
+  if (!pointResponse.ok) throw new Error(`point lookup ${pointResponse.status}`);
+  const point = await pointResponse.json();
+  const forecastUrl = point.properties?.forecast;
+  if (!forecastUrl) throw new Error("forecast URL unavailable");
+
+  const forecastResponse = await fetch(forecastUrl, {
+    headers: { "Accept": "application/geo+json" },
+    cache: "no-store"
+  });
+  if (!forecastResponse.ok) throw new Error(`forecast ${forecastResponse.status}`);
+  const forecast = await forecastResponse.json();
+
+  return {
+    periods: forecast.properties?.periods || [],
+    updated: forecast.properties?.updated || null
+  };
+}
+
+async function renderWeather() {
+  const target = $("#weather-cards");
+  if (!target || !Array.isArray(state.data.weather)) return;
+
+  target.innerHTML = state.data.weather.map(location => `
+    <article class="weather-card weather-card--loading" data-weather-id="${escapeHtml(location.id)}">
+      <h4>${escapeHtml(location.name)}</h4>
+      <p>读取预报中…</p>
+    </article>
+  `).join("");
+
+  await Promise.all(state.data.weather.map(async location => {
+    const card = target.querySelector(`[data-weather-id="${location.id}"]`);
+    try {
+      const forecast = await loadForecast(location);
+      card.outerHTML = renderForecastCard(location, forecast.periods, forecast.updated);
+    } catch (error) {
+      console.warn("NWS forecast failed", location.name, error);
+      const nwsUrl = `https://forecast.weather.gov/MapClick.php?lat=${location.lat}&lon=${location.lng}`;
+      card.innerHTML = `
+        <h4>${escapeHtml(location.name)}</h4>
+        <p>暂时无法读取预报。</p>
+        <a class="text-button" href="${nwsUrl}" target="_blank" rel="noopener noreferrer">直接打开 NWS ↗</a>
+      `;
+      card.classList.remove("weather-card--loading");
+    }
+  }));
+}
+
+const CHECKLIST_KEY = "camping-helper-checklist-v1";
+
+function loadChecklistState() {
+  try {
+    state.checklist = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || "{}");
+  } catch {
+    state.checklist = {};
+  }
+}
+
+function saveChecklistState() {
+  try {
+    localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state.checklist));
+  } catch {}
+}
+
+function updateChecklistProgress() {
+  const allItems = state.data.checklist.flatMap(group => group.items);
+  const checked = allItems.filter(item => state.checklist[item.id]).length;
+  const total = allItems.length;
+  const pct = total ? Math.round((checked / total) * 100) : 0;
+
+  $("#checklist-progress").textContent = `${checked} / ${total} · ${pct}%`;
+  $("#checklist-progressbar-fill").style.width = `${pct}%`;
+}
+
+function renderChecklist() {
+  loadChecklistState();
+  const target = $("#checklist-groups");
+  if (!target || !Array.isArray(state.data.checklist)) return;
+
+  target.innerHTML = state.data.checklist.map(group => `
+    <section class="checklist-group">
+      <h3>${escapeHtml(group.title)}</h3>
+      <div class="checklist-items">
+        ${group.items.map(item => `
+          <label class="checklist-item">
+            <input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${state.checklist[item.id] ? "checked" : ""}>
+            <span>${escapeHtml(item.text)}</span>
+          </label>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+
+  target.addEventListener("change", event => {
+    const input = event.target.closest("[data-checklist-id]");
+    if (!input) return;
+    state.checklist[input.dataset.checklistId] = input.checked;
+    saveChecklistState();
+    updateChecklistProgress();
+  });
+
+  $("#checklist-reset").addEventListener("click", () => {
+    if (!confirm("清空当前浏览器里的 Checklist 勾选状态？")) return;
+    state.checklist = {};
+    saveChecklistState();
+    target.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+    updateChecklistProgress();
+  });
+
+  updateChecklistProgress();
 }
 
 async function init() {
@@ -215,6 +363,10 @@ async function init() {
   renderMap();
   renderDays();
   renderPlaces();
+  renderChecklist();
+  renderWeather();
+
+  $("#weather-refresh")?.addEventListener("click", renderWeather);
 }
 
 init().catch(error => {
