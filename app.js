@@ -195,6 +195,13 @@ function forecastDate(period) {
   return String(period.startTime || "").slice(0, 10);
 }
 
+function formatCelsius(period) {
+  const value = Number(period.temperature);
+  if (!Number.isFinite(value)) return "—";
+  if (period.temperatureUnit === "C") return `${Math.round(value)}°C`;
+  return `${Math.round((value - 32) * 5 / 9)}°C`;
+}
+
 function renderForecastCard(location, periods, updated) {
   const start = state.data.trip.startDate;
   const end = state.data.trip.endDate;
@@ -214,7 +221,7 @@ function renderForecastCard(location, periods, updated) {
         <strong>${escapeHtml(period.name)}</strong>
         <span>${escapeHtml(period.shortForecast)}</span>
       </div>
-      <div class="forecast-temp">${escapeHtml(period.temperature)}°${escapeHtml(period.temperatureUnit)}</div>
+      <div class="forecast-temp">${escapeHtml(formatCelsius(period))}</div>
       <div class="forecast-wind">${escapeHtml(period.windSpeed)} · ${escapeHtml(period.windDirection)}</div>
     </div>
   `).join("");
