@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<meta name="referrer" content="origin">
+<title>Eastern Sierra 路线对比：US 120 / US 108 / US 395</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+html, body, #map { height:100%; margin:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.titlebox { position:absolute; z-index:1000; left:12px; top:12px; background:rgba(255,255,255,.94); padding:10px 12px; border-radius:8px; box-shadow:0 1px 7px rgba(0,0,0,.25); max-width:330px; line-height:1.35; }
+.titlebox h3 { margin:0 0 6px; font-size:16px; }
+.titlebox p { margin:4px 0; font-size:12px; }
+.legend { position:absolute; z-index:1000; left:12px; bottom:20px; background:rgba(255,255,255,.94); padding:9px 11px; border-radius:8px; box-shadow:0 1px 7px rgba(0,0,0,.25); font-size:12px; line-height:1.6; }
+.swatch { display:inline-block; width:24px; height:4px; vertical-align:middle; margin-right:7px; border-radius:2px; }
+.leaflet-popup-content { font-size:13px; line-height:1.4; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="titlebox">
+  <h3>Eastern Sierra 路线对比</h3>
+  <p><b>蓝：</b>US-120 / Tioga Pass → Lee Vining → Oh Ridge</p>
+  <p><b>橙：</b>US-108 / Sonora Pass → Bridgeport → Oh Ridge</p>
+  <p><b>灰黑：</b>US-395 经典景点走廊</p>
+  <p>湾区端以 San Francisco 作为示意起点；山路折线用于比较路线，不代替实时导航。底图直接使用 OpenStreetMap 标准瓦片；此页面由 GitHub Pages 通过 HTTPS 提供。</p>
+</div>
+<div class="legend">
+  <div><span class="swatch" style="background:#2563eb"></span>US-120 / Tioga Pass</div>
+  <div><span class="swatch" style="background:#ea580c"></span>US-108 / Sonora Pass</div>
+  <div><span class="swatch" style="background:#374151"></span>US-395 景点走廊</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map').setView([38.0, -120.15], 7);
+
+const osm = L.tileLayer(
+  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    maxZoom: 19,
+    referrerPolicy: 'origin',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }
+).addTo(map);
+
+const route120 = L.layerGroup().addTo(map), route108 = L.layerGroup().addTo(map), corridor395 = L.layerGroup().addTo(map), sights = L.layerGroup().addTo(map);
+const sf=[37.7749,-122.4194], ohRidge=[37.7992,-119.0713];
+const pts120=[sf,[37.6819,-121.7680],[37.7974,-121.2161],[37.7666,-120.8472],[37.8389,-120.2308],[37.8040,-119.8700],[37.7525,-119.7970],[37.8742,-119.3571],[37.9109,-119.2570],[37.9577,-119.1199],ohRidge];
+const pts108=[sf,[37.6819,-121.7680],[37.7974,-121.2161],[37.9841,-120.3821],[38.1977,-120.0091],[38.3427,-119.8330],[38.3270,-119.6377],[38.3470,-119.4510],[38.2550,-119.2310],[38.0927,-119.1780],[37.9577,-119.1199],ohRidge];
+const pts395=[[38.2550,-119.2310],[38.0927,-119.1780],[37.9577,-119.1199],[37.8180,-119.0530],[37.6485,-118.9721],[37.5947,-118.8520],[37.5065,-118.7265],[37.3614,-118.3997],[37.1649,-118.2896],[36.6060,-118.0629]];
+
+L.polyline(pts120,{color:'#2563eb',weight:5,opacity:.85}).bindPopup('US-120 / Tioga Pass 方案').addTo(route120);
+L.polyline(pts108,{color:'#ea580c',weight:5,opacity:.85}).bindPopup('US-108 / Sonora Pass 方案').addTo(route108);
+L.polyline(pts395,{color:'#374151',weight:4,opacity:.75,dashArray:'8,7'}).bindPopup('US-395 经典景点走廊').addTo(corridor395);
+
+function addMarker(lat,lon,title,desc){ L.marker([lat,lon]).bindPopup(`<b>${title}</b><br>${desc}`).addTo(sights); }
+addMarker(37.7992,-119.0713,'Oh Ridge Campground','你的营地；June Lake 北岸上方。');
+addMarker(38.2550,-119.2310,'Bridgeport','走 US-108 时自然经过；北段 395 的重要节点。');
+addMarker(38.2131,-119.0119,'Bodie State Historic Park','Bridgeport 东侧的鬼城；需要从 US-395 往东绕行。');
+addMarker(38.0927,-119.1780,'Conway Summit','395 北段观景点，位于 Bridgeport 与 Mono Lake 之间。');
+addMarker(37.9730,-119.1160,'Mono Lake','Lee Vining 附近；可结合 South Tufa。');
+addMarker(37.9388,-119.0271,'South Tufa Area','Mono Lake 最经典的 tufa 景观之一。');
+addMarker(37.7798,-119.0755,'June Lake','Oh Ridge 最近的核心湖区。');
+addMarker(37.7686,-119.1250,'Silver Lake','June Lake Loop 西侧；秋色和山景都很强。');
+addMarker(37.6485,-118.9721,'Mammoth Lakes','395 中段主要补给与住宿中心。');
+addMarker(37.5947,-118.8520,'Convict Lake','离 US-395 很近，适合低时间成本停车观景。');
+addMarker(37.4526,-118.7372,'Rock Creek Lake','秋叶重要支线；从 395 需向西上山。');
+addMarker(37.3614,-118.3997,'Bishop','南段 395 的大节点；去 Bishop Creek 的基地。');
+addMarker(37.1649,-118.2896,'Big Pine','南段 395 节点。');
+addMarker(36.6060,-118.0629,'Lone Pine','南段经典节点；靠近 Alabama Hills / Whitney。');
+addMarker(36.6145,-118.1250,'Alabama Hills','Lone Pine 西侧；岩石地貌与 Sierra 山景。');
+
+L.circleMarker(sf,{radius:7,color:'#111827',fillColor:'#fff',fillOpacity:1,weight:2})
+  .bindPopup('<b>Bay Area 示意起点</b><br>这里用 San Francisco 代表湾区，不代表你的实际出发点。')
+  .addTo(sights);
+
+L.control.layers(
+  null,
+  {'US-120 / Tioga Pass':route120,'US-108 / Sonora Pass':route108,'US-395 走廊':corridor395,'景点与营地':sights},
+  {collapsed:false}
+).addTo(map);
+
+const all=L.featureGroup([L.polyline(pts120),L.polyline(pts108),L.polyline(pts395)]);
+map.fitBounds(all.getBounds(),{padding:[35,35]});
+</script>
+</body>
+</html>
