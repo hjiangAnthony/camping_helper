@@ -55,29 +55,22 @@ Borrow the useful presentation ideas from Travel-Plan-Page:
 
 Do not duplicate the upstream visual system mechanically; adapt it for this project.
 
-### 3. Google Maps
+### 3. Map and navigation
 
-Primary map implementation should use Google Maps rather than static diagram templates.
+Use a lightweight OpenStreetMap/Leaflet overview map for the public page.
 
 Expected capabilities:
 
-- interactive map
-- markers for places
-- marker info windows
-- route / day grouping
-- links that open Google Maps navigation/search
-- optional Directions/Routes integration if needed later
+- interactive OSM basemap
+- Day 1 / Day 2 / Day 3 switching
+- fixed-order markers for each planned stop
+- schematic polyline connecting stops
+- itinerary/place clicks can focus the corresponding marker
+- Google Maps URLs remain available for real navigation
 
-Maps JavaScript API will require a browser-visible API key.
+The OSM route line is an overview only. It does not need road-level routing, live traffic, ETA, or waypoint optimization.
 
-Security requirements for the key:
-
-- HTTP referrer restriction to the production site, e.g. `https://hjianganthony.github.io/camping_helper/*`
-- API restriction to only the enabled Google Maps APIs
-- never use an unrestricted Google Cloud API key
-- do not treat the browser key as a secret; treat restrictions as the security boundary
-
-Start with Maps JavaScript API only. Add Places or Routes APIs only when functionality actually needs them.
+No Google Maps API key is required for the current scope.
 
 ### 4. GitHub Pages deployment
 
