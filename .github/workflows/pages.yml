@@ -1,4 +1,4 @@
-name: Deploy map to GitHub Pages
+name: Deploy site to GitHub Pages
 
 on:
   push:
@@ -26,9 +26,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Fetch licensed reference photos
-        run: bash scripts/fetch-photos.sh
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
