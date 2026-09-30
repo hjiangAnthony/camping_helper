@@ -8,10 +8,9 @@ The site should be easy to update from structured trip data and optimized for mo
 
 ## Current use case
 
-Eastern Sierra fall trip planning around:
+June Lake / Mammoth fall trip planning around:
 
 - US-120 / Tioga Pass
-- US-108 / Sonora Pass
 - US-395
 - June Lake / Oh Ridge
 - nearby scenic stops and day plans
@@ -157,8 +156,8 @@ Any new third-party service that receives trip data should be called out before 
 {
   "trip": {
     "title": "Eastern Sierra Fall Trip",
-    "startDate": "2026-10-02",
-    "endDate": "2026-10-04"
+    "startDate": "2026-10-09",
+    "endDate": "2026-10-11"
   },
   "places": [
     {
@@ -170,7 +169,7 @@ Any new third-party service that receives trip data should be called out before 
   ],
   "days": [
     {
-      "date": "2026-10-03",
+      "date": "2026-10-10",
       "title": "June Lake / fall color day",
       "items": []
     }
