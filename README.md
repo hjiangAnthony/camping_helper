@@ -1,20 +1,29 @@
 # Camping Helper
 
-Interactive Eastern Sierra trip-planning map for comparing:
+Public, mobile-first trip page for camping and road-trip planning.
 
-- US-120 / Tioga Pass
-- US-108 / Sonora Pass
-- US-395 scenic corridor
-- Oh Ridge Campground and nearby Eastern Sierra points of interest
+Current trip: **Eastern Sierra · Oct 9–11, 2026**
 
-The map is served from `index.html` and uses Leaflet with CARTO-hosted OpenStreetMap-derived basemap tiles.
+- SJC → CA-120 / Tioga Pass → Oh Ridge Campground
+- June Lake Loop
+- Mammoth Lakes Basin
+- Return via Tioga Pass
 
-## GitHub Pages
+## Structure
 
-A Pages deployment workflow is included under `.github/workflows/pages.yml`.
+- `trip-data.json` — canonical trip content
+- `index.html` — page shell
+- `styles.css` — responsive visual design
+- `app.js` — rendering, day tabs, place/map interactions
+- `dev/` — development scope and reusable skill notes
+- `archive/route-comparison-osm.html` — archived earlier OSM route-comparison prototype
 
-If Pages is not already enabled for this repository, open:
+## Maps
 
-**Settings → Pages → Build and deployment → Source → GitHub Actions**
+The current page uses Google Maps embed URLs and Google Maps URLs for place preview and navigation. This does **not** require a stored API key.
 
-Then run the workflow or push another commit.
+The next map upgrade can use Google Maps JavaScript API for markers, InfoWindows, and richer route interactions. Any browser API key should be restricted to the GitHub Pages origin and to the specific enabled Maps APIs.
+
+## Hosting
+
+GitHub Pages deploys from `main` through `.github/workflows/pages.yml`.
