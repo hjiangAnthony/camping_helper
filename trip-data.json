@@ -147,6 +147,42 @@
       "lng": -119.4852,
       "query": "Olmsted Point, Yosemite National Park",
       "note": "返程短停，视野开阔；赶时间可删。"
+    },
+    {
+      "id": "sjc",
+      "name": "SJC",
+      "area": "San Jose",
+      "category": "路线节点",
+      "priority": "路线",
+      "routeOnly": true,
+      "lat": 37.3639,
+      "lng": -121.9289,
+      "query": "San Jose International Airport, CA",
+      "note": "周五出发 / 周日返程终点。"
+    },
+    {
+      "id": "oakdale",
+      "name": "Oakdale",
+      "area": "CA-120",
+      "category": "路线节点",
+      "priority": "路线",
+      "routeOnly": true,
+      "lat": 37.7666,
+      "lng": -120.847,
+      "query": "Oakdale, CA",
+      "note": "去返程补给节点。"
+    },
+    {
+      "id": "groveland",
+      "name": "Groveland",
+      "area": "CA-120",
+      "category": "路线节点",
+      "priority": "路线",
+      "routeOnly": true,
+      "lat": 37.8389,
+      "lng": -120.2308,
+      "query": "Groveland, CA",
+      "note": "进入 Yosemite 高山区前后的路线节点。"
     }
   ],
   "days": [
@@ -197,6 +233,13 @@
             "oh-ridge"
           ]
         }
+      ],
+      "routePlaceIds": [
+        "sjc",
+        "oakdale",
+        "groveland",
+        "lee-vining",
+        "oh-ridge"
       ]
     },
     {
@@ -296,6 +339,19 @@
             "oh-ridge"
           ]
         }
+      ],
+      "routePlaceIds": [
+        "oh-ridge",
+        "june-lake",
+        "gull-lake",
+        "silver-lake",
+        "grant-lake",
+        "twin-lakes",
+        "lake-mary",
+        "lake-george",
+        "mammoth",
+        "silver-lake",
+        "oh-ridge"
       ]
     },
     {
@@ -304,7 +360,7 @@
       "title": "Oh Ridge → Tioga Pass → SJC",
       "subtitle": "轻松上午 + 返程",
       "routeLabel": "打开周日返程",
-      "routeUrl": "https://www.google.com/maps/dir/?api=1&origin=Oh+Ridge+Campground,+June+Lake,+CA&destination=San+Jose+International+Airport,+CA&travelmode=driving&waypoints=Lee+Vining,+CA%7CTenaya+Lake,+Yosemite+National+Park%7COlmsted+Point,+Yosemite+National+Park",
+      "routeUrl": "https://www.google.com/maps/dir/?api=1&origin=Oh+Ridge+Campground,+June+Lake,+CA&destination=San+Jose+International+Airport,+CA&travelmode=driving&waypoints=Lee+Vining,+CA%7COlmsted+Point,+Yosemite+National+Park%7CTenaya+Lake,+Yosemite+National+Park",
       "items": [
         {
           "time": "08:00–10:30",
@@ -345,19 +401,19 @@
         {
           "time": "下午",
           "type": "scenic",
-          "title": "Tenaya Lake（可删）",
-          "detail": "停车顺利才停，控制在 10–20 分钟，不徒步。",
+          "title": "Olmsted Point（推荐）",
+          "detail": "顺路短停约 10–15 分钟；若返程进度落后则直接跳过。",
           "placeIds": [
-            "tenaya-lake"
+            "olmsted-point"
           ]
         },
         {
           "time": "下午",
           "type": "scenic",
-          "title": "Olmsted Point（推荐）",
-          "detail": "顺路短停约 10–15 分钟；若返程进度落后则直接跳过。",
+          "title": "Tenaya Lake（可删）",
+          "detail": "停车顺利才停，控制在 10–20 分钟，不徒步。",
           "placeIds": [
-            "olmsted-point"
+            "tenaya-lake"
           ]
         },
         {
@@ -367,6 +423,15 @@
           "detail": "不进入 Yosemite Valley，直接经 Groveland / Central Valley 返回湾区。",
           "placeIds": []
         }
+      ],
+      "routePlaceIds": [
+        "oh-ridge",
+        "lee-vining",
+        "olmsted-point",
+        "tenaya-lake",
+        "groveland",
+        "oakdale",
+        "sjc"
       ]
     }
   ],
