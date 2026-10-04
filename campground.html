@@ -7,7 +7,7 @@
   <title>Oh Ridge Campsite 地图</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="styles.css?v=6">
-  <link rel="stylesheet" href="campground.css?v=1">
+  <link rel="stylesheet" href="campground.css?v=2">
 </head>
 <body>
   <header class="campground-hero">
@@ -15,12 +15,6 @@
       <a class="campground-back" href="index.html">← 返回行程主页</a>
       <p class="eyebrow">OH RIDGE CAMPGROUND · CAMPSITE MAP</p>
       <h1>营地位置图</h1>
-      <p class="hero__route">基于 RIDB campsite 坐标，在 OpenStreetMap 上查看 Oh Ridge 各营位的相对位置。</p>
-      <div class="hero__chips">
-        <span class="chip chip--solid" id="site-count">读取中…</span>
-        <span class="chip" id="loop-count"></span>
-        <span class="chip">点击点查看 Site / Loop</span>
-      </div>
     </div>
   </header>
 
@@ -33,6 +27,7 @@
         </div>
         <div class="campground-map-actions">
           <button type="button" class="small-button" id="fit-map">显示全部营位</button>
+          <button type="button" class="small-button" id="show-my-site">显示我的营位</button>
         </div>
       </div>
 
@@ -43,20 +38,16 @@
           <h3>Loop 图例</h3>
           <div id="loop-legend" class="loop-legend"></div>
         </div>
-        <div class="campground-note">
-          <h3>地图说明</h3>
-          <p>普通缩放只显示点；放大后会自动显示 campsite 编号。HOST 点以灰色显示。坐标来自 RIDB 静态数据，不包含预订状态。</p>
-        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer shell">
-    <span>Oh Ridge Campground · RIDB campsite coordinates</span>
+    <span>Oh Ridge Campground</span>
     <a href="index.html">返回主页 ↑</a>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="campground.js?v=1"></script>
+  <script src="campground.js?v=2"></script>
 </body>
 </html>

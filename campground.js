@@ -12,6 +12,7 @@ const LOOP_COLORS = {
 
 const HOST_COLOR = "#8a8d87";
 const LABEL_ZOOM = 18;
+const MY_SITE = "058";
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -40,6 +41,7 @@ async function initCampgroundMap() {
   }).addTo(map);
 
   const markers = [];
+  const markerBySite = new Map();
   const bounds = [];
 
   sites.forEach(site => {
@@ -54,7 +56,7 @@ async function initCampgroundMap() {
       fillOpacity: host ? 0.82 : 0.94
     });
 
-    const label = `Site ${escapeHtml(site.site)}`;
+    const label = `Site ${escapeHtml(site.site)} · ${escapeHtml(site.loop)} Loop`;
     marker.bindTooltip(label, {
       direction: "top",
       offset: [0, -6],
@@ -76,6 +78,7 @@ async function initCampgroundMap() {
 
     marker.addTo(map);
     markers.push(marker);
+    markerBySite.set(site.site, marker);
     bounds.push([site.lat, site.lng]);
   });
 
@@ -88,6 +91,18 @@ async function initCampgroundMap() {
     });
   }
 
+  function showMySite() {
+    const site = sites.find(item => item.site === MY_SITE);
+    const marker = markerBySite.get(MY_SITE);
+    if (!site || !marker) return;
+
+    map.flyTo([site.lat, site.lng], 19, { duration: 0.7 });
+    setTimeout(() => {
+      marker.openTooltip();
+      marker.openPopup();
+    }, 750);
+  }
+
   function updateLabels() {
     const show = map.getZoom() >= LABEL_ZOOM;
     markers.forEach(marker => {
@@ -98,11 +113,9 @@ async function initCampgroundMap() {
 
   map.on("zoomend", updateLabels);
   document.querySelector("#fit-map")?.addEventListener("click", fitAll);
+  document.querySelector("#show-my-site")?.addEventListener("click", showMySite);
 
   const loops = [...new Set(sites.map(site => site.loop))].sort();
-  document.querySelector("#site-count").textContent = `${sites.length} 个 campsite`;
-  document.querySelector("#loop-count").textContent = `${loops.length} 个 loop`;
-
   document.querySelector("#loop-legend").innerHTML = [
     ...loops.map(loop => `
       <span class="loop-key">
