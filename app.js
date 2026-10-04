@@ -593,19 +593,39 @@ function renderChecklist() {
   const target = $("#checklist-groups");
   if (!target || !Array.isArray(state.data.checklist)) return;
 
-  target.innerHTML = state.data.checklist.map(group => `
-    <section class="checklist-group">
-      <h3>${escapeHtml(group.title)}</h3>
-      <div class="checklist-items">
-        ${group.items.map(item => `
-          <label class="checklist-item">
-            <input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${state.checklist[item.id] ? "checked" : ""}>
-            <span>${escapeHtml(item.text)}</span>
-          </label>
-        `).join("")}
+  const personalGroups = state.data.checklist.filter(group => group.id !== "car");
+  const teamGroups = state.data.checklist.filter(group => group.id === "car");
+
+  function renderGroups(groups) {
+    return groups.map(group => `
+      <section class="checklist-group">
+        <h4>${escapeHtml(group.title)}</h4>
+        <div class="checklist-items">
+          ${group.items.map(item => `
+            <label class="checklist-item">
+              <input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${state.checklist[item.id] ? "checked" : ""}>
+              <span>${escapeHtml(item.text)}</span>
+            </label>
+          `).join("")}
+        </div>
+      </section>
+    `).join("");
+  }
+
+  target.innerHTML = `
+    <section class="checklist-scope">
+      <h3>个人出行检查清单</h3>
+      <div class="checklist-scope__groups">
+        ${renderGroups(personalGroups)}
       </div>
     </section>
-  `).join("");
+    <section class="checklist-scope">
+      <h3>团队出行检查清单</h3>
+      <div class="checklist-scope__groups checklist-scope__groups--team">
+        ${renderGroups(teamGroups)}
+      </div>
+    </section>
+  `;
 
   target.addEventListener("change", event => {
     const input = event.target.closest("[data-checklist-id]");
