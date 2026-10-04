@@ -67,8 +67,6 @@ function renderHero() {
   $("#trip-dates").textContent = `${formatDate(trip.startDate)} → ${formatDate(trip.endDate)}`;
   $("#trip-base").textContent = `🏕 ${trip.baseCamp}`;
   $("#trip-departure").textContent = `🚗 ${trip.departure}`;
-  $("#strategy-title").textContent = state.data.strategy.title;
-  $("#strategy-text").textContent = state.data.strategy.text;
 }
 
 function setActivePlace(placeId, scroll = false) {
