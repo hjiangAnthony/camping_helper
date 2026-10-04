@@ -426,3 +426,17 @@ h1{
     font-size:.74rem;
   }
 }
+
+
+.fall-foliage-map{
+  margin-top:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+}
+.fall-foliage-map img{
+  display:block;
+  width:100%;
+  height:auto;
+}
