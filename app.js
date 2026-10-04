@@ -359,11 +359,55 @@ function forecastDate(period) {
   return String(period.startTime || "").slice(0, 10);
 }
 
-function formatCelsius(period) {
+function temperatureC(period) {
   const value = Number(period.temperature);
-  if (!Number.isFinite(value)) return "—";
-  if (period.temperatureUnit === "C") return `${Math.round(value)}°C`;
-  return `${Math.round((value - 32) * 5 / 9)}°C`;
+  if (!Number.isFinite(value)) return null;
+  return period.temperatureUnit === "C" ? value : (value - 32) * 5 / 9;
+}
+
+function formatCelsius(period) {
+  const value = temperatureC(period);
+  return Number.isFinite(value) ? `${Math.round(value)}°C` : "—";
+}
+
+function windValuesMph(period) {
+  return (String(period.windSpeed || "").match(/\d+(?:\.\d+)?/g) || [])
+    .map(Number)
+    .filter(Number.isFinite);
+}
+
+function formatWind(period) {
+  const raw = String(period.windSpeed || "").trim();
+  const direction = String(period.windDirection || "").trim();
+  if (/calm/i.test(raw)) return "静风";
+
+  const values = windValuesMph(period);
+  if (!values.length) return [direction, raw].filter(Boolean).join(" · ") || "—";
+
+  const kmh = values.map(value => Math.round(value * 1.60934));
+  const speed = kmh.length > 1
+    ? `${Math.min(...kmh)}–${Math.max(...kmh)} km/h`
+    : `${kmh[0]} km/h`;
+
+  return [direction, speed].filter(Boolean).join(" · ");
+}
+
+function formatFeelsLike(period) {
+  const tempC = temperatureC(period);
+  if (!Number.isFinite(tempC)) return "—";
+
+  const windMph = windValuesMph(period);
+  if (!windMph.length) return `${Math.round(tempC)}°C`;
+
+  const windKmh = (windMph.reduce((sum, value) => sum + value, 0) / windMph.length) * 1.60934;
+
+  if (tempC <= 10 && windKmh > 4.8) {
+    const windFactor = Math.pow(windKmh, 0.16);
+    const windChill = 13.12 + 0.6215 * tempC - 11.37 * windFactor + 0.3965 * tempC * windFactor;
+    return `${Math.round(windChill)}°C`;
+  }
+
+  return `${Math.round(tempC)}°C`;
 }
 
 function renderForecastCard(location, periods, updated) {
@@ -381,12 +425,15 @@ function renderForecastCard(location, periods, updated) {
 
   const rows = selected.map(period => `
     <div class="forecast-period">
-      <div>
+      <div class="forecast-period__summary">
         <strong>${escapeHtml(period.name)}</strong>
         <span>${escapeHtml(period.shortForecast)}</span>
       </div>
-      <div class="forecast-temp">${escapeHtml(formatCelsius(period))}</div>
-      <div class="forecast-wind">${escapeHtml(period.windSpeed)} · ${escapeHtml(period.windDirection)}</div>
+      <div class="forecast-metrics">
+        <span><b>温度</b> ${escapeHtml(formatCelsius(period))}</span>
+        <span><b>体感</b> ${escapeHtml(formatFeelsLike(period))}</span>
+        <span><b>风力</b> ${escapeHtml(formatWind(period))}</span>
+      </div>
     </div>
   `).join("");
 
