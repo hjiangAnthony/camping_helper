@@ -365,23 +365,23 @@ function temperatureC(period) {
   return period.temperatureUnit === "C" ? value : (value - 32) * 5 / 9;
 }
 
-function formatCelsius(period) {
-  const value = temperatureC(period);
-  return Number.isFinite(value) ? `${Math.round(value)}°C` : "—";
-}
-
 function windValuesMph(period) {
   return (String(period.windSpeed || "").match(/\d+(?:\.\d+)?/g) || [])
     .map(Number)
     .filter(Number.isFinite);
 }
 
+function maxWindMph(period) {
+  const values = windValuesMph(period);
+  return values.length ? Math.max(...values) : 0;
+}
+
 function formatWind(period) {
-  const raw = String(period.windSpeed || "").trim();
-  const direction = String(period.windDirection || "").trim();
+  const raw = String(period?.windSpeed || "").trim();
+  const direction = String(period?.windDirection || "").trim();
   if (/calm/i.test(raw)) return "静风";
 
-  const values = windValuesMph(period);
+  const values = windValuesMph(period || {});
   if (!values.length) return [direction, raw].filter(Boolean).join(" · ") || "—";
 
   const kmh = values.map(value => Math.round(value * 1.60934));
@@ -392,47 +392,101 @@ function formatWind(period) {
   return [direction, speed].filter(Boolean).join(" · ");
 }
 
-function formatFeelsLike(period) {
+function feelsLikeC(period) {
   const tempC = temperatureC(period);
-  if (!Number.isFinite(tempC)) return "—";
+  if (!Number.isFinite(tempC)) return null;
 
   const windMph = windValuesMph(period);
-  if (!windMph.length) return `${Math.round(tempC)}°C`;
+  if (!windMph.length) return tempC;
 
   const windKmh = (windMph.reduce((sum, value) => sum + value, 0) / windMph.length) * 1.60934;
 
   if (tempC <= 10 && windKmh > 4.8) {
     const windFactor = Math.pow(windKmh, 0.16);
-    const windChill = 13.12 + 0.6215 * tempC - 11.37 * windFactor + 0.3965 * tempC * windFactor;
-    return `${Math.round(windChill)}°C`;
+    return 13.12 + 0.6215 * tempC - 11.37 * windFactor + 0.3965 * tempC * windFactor;
   }
 
-  return `${Math.round(tempC)}°C`;
+  return tempC;
+}
+
+function formatForecastDay(dateString) {
+  const date = new Date(`${dateString}T12:00:00`);
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "numeric",
+    day: "numeric",
+    weekday: "short"
+  }).format(date);
+}
+
+function dailyForecasts(periods) {
+  const grouped = new Map();
+
+  periods.forEach(period => {
+    const date = forecastDate(period);
+    if (!date) return;
+    if (!grouped.has(date)) grouped.set(date, []);
+    grouped.get(date).push(period);
+  });
+
+  return [...grouped.entries()].map(([date, dayPeriods]) => {
+    const daytime = dayPeriods.find(period => period.isDaytime === true);
+    const nighttime = dayPeriods.find(period => period.isDaytime === false);
+    const temps = dayPeriods.map(temperatureC).filter(Number.isFinite);
+    const feels = dayPeriods.map(feelsLikeC).filter(Number.isFinite);
+    const strongestWind = dayPeriods.reduce((best, period) =>
+      maxWindMph(period) > maxWindMph(best) ? period : best
+    , dayPeriods[0]);
+
+    return {
+      date,
+      label: formatForecastDay(date),
+      summary: daytime?.shortForecast || dayPeriods[0]?.shortForecast || "",
+      high: Number.isFinite(temperatureC(daytime))
+        ? temperatureC(daytime)
+        : (temps.length ? Math.max(...temps) : null),
+      low: Number.isFinite(temperatureC(nighttime))
+        ? temperatureC(nighttime)
+        : (temps.length ? Math.min(...temps) : null),
+      feelsLow: feels.length ? Math.min(...feels) : null,
+      feelsHigh: feels.length ? Math.max(...feels) : null,
+      wind: formatWind(strongestWind)
+    };
+  }).sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function formatTempValue(value) {
+  return Number.isFinite(value) ? `${Math.round(value)}°C` : "—";
+}
+
+function formatFeelsRange(low, high) {
+  if (!Number.isFinite(low) && !Number.isFinite(high)) return "—";
+  if (!Number.isFinite(low)) return formatTempValue(high);
+  if (!Number.isFinite(high)) return formatTempValue(low);
+  if (Math.round(low) === Math.round(high)) return formatTempValue(low);
+  return `${Math.round(low)}–${Math.round(high)}°C`;
 }
 
 function renderForecastCard(location, periods, updated) {
   const start = state.data.trip.startDate;
   const end = state.data.trip.endDate;
-  const tripPeriods = periods.filter(period => {
-    const date = forecastDate(period);
-    return date >= start && date <= end;
-  });
-
-  const selected = tripPeriods.length ? tripPeriods.slice(0, 6) : periods.slice(0, 4);
-  const note = tripPeriods.length
+  const daily = dailyForecasts(periods);
+  const tripDays = daily.filter(day => day.date >= start && day.date <= end);
+  const selected = tripDays.length ? tripDays : daily.slice(0, 4);
+  const note = tripDays.length
     ? "已覆盖本次出行日期"
     : "当前预报窗口尚未覆盖 10/9–10/11";
 
-  const rows = selected.map(period => `
+  const rows = selected.map(day => `
     <div class="forecast-period">
       <div class="forecast-period__summary">
-        <strong>${escapeHtml(period.name)}</strong>
-        <span>${escapeHtml(period.shortForecast)}</span>
+        <strong>${escapeHtml(day.label)}</strong>
+        <span>${escapeHtml(day.summary)}</span>
       </div>
       <div class="forecast-metrics">
-        <span><b>温度</b> ${escapeHtml(formatCelsius(period))}</span>
-        <span><b>体感</b> ${escapeHtml(formatFeelsLike(period))}</span>
-        <span><b>风力</b> ${escapeHtml(formatWind(period))}</span>
+        <span><b>最高</b> ${escapeHtml(formatTempValue(day.high))}</span>
+        <span><b>最低</b> ${escapeHtml(formatTempValue(day.low))}</span>
+        <span><b>体感</b> ${escapeHtml(formatFeelsRange(day.feelsLow, day.feelsHigh))}</span>
+        <span><b>风力</b> ${escapeHtml(day.wind)}</span>
       </div>
     </div>
   `).join("");
