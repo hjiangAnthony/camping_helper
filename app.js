@@ -360,13 +360,14 @@ function forecastDate(period) {
 }
 
 function temperatureC(period) {
+  if (!period) return null;
   const value = Number(period.temperature);
   if (!Number.isFinite(value)) return null;
   return period.temperatureUnit === "C" ? value : (value - 32) * 5 / 9;
 }
 
 function windValuesMph(period) {
-  return (String(period.windSpeed || "").match(/\d+(?:\.\d+)?/g) || [])
+  return (String(period?.windSpeed || "").match(/\d+(?:\.\d+)?/g) || [])
     .map(Number)
     .filter(Number.isFinite);
 }
