@@ -646,6 +646,23 @@ function renderChecklist() {
   updateChecklistProgress();
 }
 
+function initSideMenu() {
+  const menu = $(".side-menu");
+  const toggle = $(".side-menu__toggle");
+  if (!menu || !toggle) return;
+
+  toggle.addEventListener("click", () => {
+    const open = menu.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  menu.addEventListener("click", event => {
+    if (!event.target.closest("a")) return;
+    menu.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  });
+}
+
 async function init() {
   const response = await fetch("trip-data.json", { cache: "no-store" });
   if (!response.ok) throw new Error(`Could not load trip-data.json: ${response.status}`);
@@ -653,6 +670,7 @@ async function init() {
   state.placesById = Object.fromEntries(state.data.places.map(place => [place.id, place]));
 
   renderHero();
+  initSideMenu();
   renderPlacePreview();
   initRouteMap();
   renderRouteTabs();
