@@ -357,11 +357,16 @@ h1{
 
 
 .side-menu{
-  position:absolute;
+  position:fixed;
   top:22px;
   right:max(16px,calc((100vw - 1120px)/2));
   z-index:20;
   width:188px;
+}
+.side-menu__toggle{
+  display:none;
+}
+.side-menu__panel{
   padding:13px;
   border:1px solid rgba(70,88,70,.16);
   border-radius:16px;
@@ -401,16 +406,43 @@ h1{
 }
 @media(max-width:900px){
   .side-menu{
-    position:static;
+    top:10px;
+    right:10px;
+    width:auto;
+  }
+  .side-menu__toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:58px;
+    padding:8px 11px;
+    border:1px solid rgba(70,88,70,.18);
+    border-radius:999px;
+    background:rgba(255,253,249,.94);
+    box-shadow:0 7px 22px rgba(52,45,34,.09);
+    color:#465046;
+    cursor:pointer;
+    font-weight:800;
+    font-size:.76rem;
+    backdrop-filter:blur(10px);
+  }
+  .side-menu__panel{
+    display:none;
     width:180px;
-    margin:18px 12px 0 auto;
+    margin-top:8px;
+    background:rgba(255,253,249,.97);
+  }
+  .side-menu.is-open .side-menu__panel{
+    display:block;
   }
 }
 @media(max-width:600px){
   .side-menu{
+    top:8px;
+    right:8px;
+  }
+  .side-menu__panel{
     width:166px;
-    margin-top:14px;
-    margin-right:11px;
     padding:10px;
   }
   .side-menu a{font-size:.74rem}

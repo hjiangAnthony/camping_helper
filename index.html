@@ -7,7 +7,7 @@
   <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
   <header class="hero" id="top">
@@ -23,16 +23,21 @@
     </div>
 
     <aside class="side-menu" aria-label="页面导航">
-      <div class="side-menu__group">
-        <span class="side-menu__label">出行规划</span>
-        <a href="#place-preview">景点预览</a>
-        <a href="#route-preview">路线预览</a>
-        <a href="#conditions">路况/天气</a>
-        <a href="campground.html">营地地图</a>
-      </div>
-      <div class="side-menu__group">
-        <span class="side-menu__label">行前准备</span>
-        <a href="#checklist">露营装备清单</a>
+      <button class="side-menu__toggle" type="button" aria-expanded="false" aria-controls="side-menu-panel">
+        菜单
+      </button>
+      <div class="side-menu__panel" id="side-menu-panel">
+        <div class="side-menu__group">
+          <span class="side-menu__label">出行规划</span>
+          <a href="#place-preview">景点预览</a>
+          <a href="#route-preview">路线预览</a>
+          <a href="#conditions">路况/天气</a>
+          <a href="campground.html">营地地图</a>
+        </div>
+        <div class="side-menu__group">
+          <span class="side-menu__label">行前准备</span>
+          <a href="#checklist">露营装备清单</a>
+        </div>
       </div>
     </aside>
   </header>
@@ -203,6 +208,6 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
