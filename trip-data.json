@@ -489,6 +489,10 @@
         {
           "id": "headlamp",
           "text": "头灯 + 备用电池"
+        },
+        {
+          "id": "hammer",
+          "text": "锤子"
         }
       ]
     },
@@ -506,7 +510,7 @@
         },
         {
           "id": "down-jacket",
-          "text": "羽绒或厚外套"
+          "text": "厚外套"
         },
         {
           "id": "shell",
@@ -524,7 +528,7 @@
     },
     {
       "id": "food",
-      "title": "食物与营地厨房",
+      "title": "食物、厨房与篝火",
       "items": [
         {
           "id": "water",
@@ -551,12 +555,16 @@
           "text": "锅具 / 餐具 / 杯子"
         },
         {
-          "id": "cooler",
-          "text": "Cooler / 冰袋"
-        },
-        {
           "id": "trash-bags",
           "text": "垃圾袋"
+        },
+        {
+          "id": "fire-tongs",
+          "text": "火钳"
+        },
+        {
+          "id": "tinder",
+          "text": "引火物"
         }
       ]
     },
