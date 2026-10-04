@@ -54,7 +54,7 @@ async function initCampgroundMap() {
       fillOpacity: host ? 0.82 : 0.94
     });
 
-    const label = `Site ${escapeHtml(site.site)}`;
+    const label = `Site ${escapeHtml(site.site)} · ${escapeHtml(site.loop)} Loop`;
     marker.bindTooltip(label, {
       direction: "top",
       offset: [0, -6],
