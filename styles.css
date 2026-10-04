@@ -443,3 +443,15 @@ h1{
     gap:10px;
   }
 }
+
+.camp-reminder__content{min-width:0}
+.camp-reminder__items{
+  display:grid;
+  gap:7px;
+  margin-top:7px;
+}
+.camp-reminder__items p{margin:0}
+.camp-reminder__items strong{
+  color:#4a4036;
+  margin-right:4px;
+}
