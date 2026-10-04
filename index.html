@@ -7,7 +7,7 @@
   <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <header class="hero" id="top">
@@ -21,16 +21,22 @@
         <span class="chip" id="trip-base"></span>
         <span class="chip" id="trip-departure"></span>
       </div>
-      <nav class="hero__actions" aria-label="页面导航">
-        <a href="#place-preview" class="button button--primary">景点预览</a>
-        <a href="#route-preview" class="button">路线预览</a>        <a href="campground.html" class="button">营地地图</a>
-        <a href="#itinerary" class="button">行程表</a>
-        <a href="#places" class="button">景点</a>
-        <a href="#conditions" class="button">路况/天气</a>
-        <a href="#checklist" class="button">Checklist</a>
-      </nav>
     </div>
   </header>
+
+  <aside class="side-menu" aria-label="页面导航">
+    <div class="side-menu__group">
+      <span class="side-menu__label">出行规划</span>
+      <a href="#place-preview">景点预览</a>
+      <a href="#route-preview">路线预览</a>
+      <a href="#conditions">路况/天气</a>
+      <a href="campground.html">营地地图</a>
+    </div>
+    <div class="side-menu__group">
+      <span class="side-menu__label">行前准备</span>
+      <a href="#checklist">露营清单</a>
+    </div>
+  </aside>
 
   <main class="shell main">
     <section class="summary-grid" aria-label="行程摘要">
@@ -49,15 +55,6 @@
         <strong>周日 12:00 · Oh Ridge</strong>
         <p>经 Tioga Pass 回湾区；Tenaya / Olmsted 都是可删短停。</p>
       </article>
-    </section>
-
-    <section class="strategy-card" id="strategy">
-      <div>
-        <p class="section-kicker">叶况调整</p>
-        <h2 id="strategy-title"></h2>
-      </div>
-      <p id="strategy-text"></p>
-      <span class="status-dot">10/7 再看一次叶况</span>
     </section>
 
     <section class="section map-section" id="place-preview">
@@ -190,6 +187,6 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
