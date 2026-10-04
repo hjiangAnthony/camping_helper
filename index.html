@@ -7,7 +7,7 @@
   <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <header class="hero" id="top">
@@ -21,21 +21,21 @@
         <span class="chip" id="trip-departure"></span>
       </div>
     </div>
-  </header>
 
-  <aside class="side-menu" aria-label="页面导航">
-    <div class="side-menu__group">
-      <span class="side-menu__label">出行规划</span>
-      <a href="#place-preview">景点预览</a>
-      <a href="#route-preview">路线预览</a>
-      <a href="#conditions">路况/天气</a>
-      <a href="campground.html">营地地图</a>
-    </div>
-    <div class="side-menu__group">
-      <span class="side-menu__label">行前准备</span>
-      <a href="#checklist">露营清单</a>
-    </div>
-  </aside>
+    <aside class="side-menu" aria-label="页面导航">
+      <div class="side-menu__group">
+        <span class="side-menu__label">出行规划</span>
+        <a href="#place-preview">景点预览</a>
+        <a href="#route-preview">路线预览</a>
+        <a href="#conditions">路况/天气</a>
+        <a href="campground.html">营地地图</a>
+      </div>
+      <div class="side-menu__group">
+        <span class="side-menu__label">行前准备</span>
+        <a href="#checklist">露营装备清单</a>
+      </div>
+    </aside>
+  </header>
 
   <main class="shell main">
     <section class="summary-grid" aria-label="行程摘要">
@@ -158,13 +158,22 @@
       <div class="section-heading checklist-heading">
         <div>
           <p class="section-kicker">CAMPING CHECKLIST</p>
-          <h2>露营清单</h2>
+          <h2>露营装备清单</h2>
         </div>
         <div class="checklist-actions">
           <span id="checklist-progress" class="muted-label"></span>
           <button type="button" class="small-button" id="checklist-reset">重置</button>
         </div>
       </div>
+
+      <div class="camp-reminder">
+        <div>
+          <span class="condition-label">提醒</span>
+          <p>Oh Ridge 营地晚上风很大、气温低，注意帐篷防风和夜间保暖。</p>
+        </div>
+        <a class="text-button" href="https://www.recreation.gov/camping/campgrounds/232269" target="_blank" rel="noopener noreferrer">查看 Oh Ridge 营地信息 ↗</a>
+      </div>
+
       <div class="checklist-progressbar" aria-hidden="true">
         <span id="checklist-progressbar-fill"></span>
       </div>
@@ -190,6 +199,6 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
