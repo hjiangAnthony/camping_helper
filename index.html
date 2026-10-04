@@ -7,7 +7,7 @@
   <meta name="referrer" content="origin">
   <title>June Lake & Mammoth 秋色露营</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <header class="hero" id="top">
@@ -21,21 +21,21 @@
         <span class="chip" id="trip-departure"></span>
       </div>
     </div>
-  </header>
 
-  <aside class="side-menu" aria-label="页面导航">
-    <div class="side-menu__group">
-      <span class="side-menu__label">出行规划</span>
-      <a href="#place-preview">景点预览</a>
-      <a href="#route-preview">路线预览</a>
-      <a href="#conditions">路况/天气</a>
-      <a href="campground.html">营地地图</a>
-    </div>
-    <div class="side-menu__group">
-      <span class="side-menu__label">行前准备</span>
-      <a href="#checklist">露营清单</a>
-    </div>
-  </aside>
+    <aside class="side-menu" aria-label="页面导航">
+      <div class="side-menu__group">
+        <span class="side-menu__label">出行规划</span>
+        <a href="#place-preview">景点预览</a>
+        <a href="#route-preview">路线预览</a>
+        <a href="#conditions">路况/天气</a>
+        <a href="campground.html">营地地图</a>
+      </div>
+      <div class="side-menu__group">
+        <span class="side-menu__label">行前准备</span>
+        <a href="#checklist">露营装备清单</a>
+      </div>
+    </aside>
+  </header>
 
   <main class="shell main">
     <section class="summary-grid" aria-label="行程摘要">
@@ -158,13 +158,26 @@
       <div class="section-heading checklist-heading">
         <div>
           <p class="section-kicker">CAMPING CHECKLIST</p>
-          <h2>露营清单</h2>
+          <h2>露营装备清单</h2>
         </div>
         <div class="checklist-actions">
           <span id="checklist-progress" class="muted-label"></span>
           <button type="button" class="small-button" id="checklist-reset">重置</button>
         </div>
       </div>
+
+      <div class="camp-reminder">
+        <div class="camp-reminder__content">
+          <span class="condition-label">提醒</span>
+          <div class="camp-reminder__items">
+            <p><strong>睡袋</strong> 正常情况建议携带 20°F / -5°C 睡袋；下周气温比往常高，可酌情搭配睡袋和保暖衣物。</p>
+            <p><strong>洗澡</strong> Silver Lake 营地有沐浴设施，需要自备 quarters。</p>
+            <p><strong>停车</strong> 营地额外停车位需收取 $10 / 晚停车费。</p>
+          </div>
+        </div>
+        <a class="text-button" href="https://www.recreation.gov/camping/campgrounds/232269" target="_blank" rel="noopener noreferrer">查看 Oh Ridge 营地信息 ↗</a>
+      </div>
+
       <div class="checklist-progressbar" aria-hidden="true">
         <span id="checklist-progressbar-fill"></span>
       </div>
@@ -190,6 +203,6 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

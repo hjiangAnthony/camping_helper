@@ -185,22 +185,46 @@ h1{
 .weather-card__head a{font-size:.76rem;font-weight:800;text-decoration:none;color:var(--green)}
 .forecast-list{display:grid;gap:6px}
 .forecast-period{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;
-  border-top:1px solid #eee8df;padding-top:7px
+  display:grid;
+  gap:6px;
+  border-top:1px solid #eee8df;
+  padding-top:8px
 }
 .forecast-period:first-child{border-top:0;padding-top:0}
-.forecast-period strong{display:block;font-size:.8rem}
-.forecast-period span{display:block;color:#6a6e67;font-size:.74rem;margin-top:2px}
-.forecast-temp{font-weight:850;font-size:.88rem}
-.forecast-wind{grid-column:1/-1;color:#85877f;font-size:.7rem}
+.forecast-period__summary strong{display:block;font-size:.8rem}
+.forecast-period__summary span{display:block;color:#6a6e67;font-size:.74rem;margin-top:2px}
+.forecast-metrics{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px 12px;
+  color:#73776f;
+  font-size:.71rem;
+}
+.forecast-metrics span{margin:0}
+.forecast-metrics b{color:#4e544c;font-weight:850}
 .weather-updated{margin:9px 0 0;color:#8b8e86;font-size:.68rem}
 .checklist-heading{align-items:center}
 .checklist-actions{display:flex;align-items:center;gap:10px}
 .checklist-progressbar{height:8px;background:#ece5da;border-radius:999px;overflow:hidden;margin:-4px 0 18px}
 .checklist-progressbar span{display:block;width:0;height:100%;background:var(--green);transition:width .2s ease}
-.checklist-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.checklist-groups{display:grid;gap:18px}
+.checklist-scope{
+  display:grid;
+  gap:10px;
+}
+.checklist-scope>h3{
+  margin:0;
+  font-size:1rem;
+  color:#3f463f;
+}
+.checklist-scope__groups{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.checklist-scope__groups--team{grid-template-columns:minmax(0,1fr)}
 .checklist-group{border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px}
-.checklist-group h3{margin:0 0 10px;font-size:.96rem}
+.checklist-group h4{margin:0 0 10px;font-size:.96rem}
 .checklist-items{display:grid;gap:7px}
 .checklist-item{
   display:flex;align-items:flex-start;gap:9px;padding:7px 8px;border-radius:10px;cursor:pointer;
@@ -213,7 +237,7 @@ h1{
   .conditions-grid{grid-template-columns:1fr}
 }
 @media(max-width:700px){
-  .weather-cards,.checklist-groups{grid-template-columns:1fr}
+  .weather-cards,.checklist-scope__groups{grid-template-columns:1fr}
   .checklist-heading{align-items:flex-start}
 }
 
@@ -333,35 +357,34 @@ h1{
 
 
 .side-menu{
-  position:fixed;
-  top:50%;
-  left:max(14px,calc((100vw - 1120px)/2 - 170px));
-  z-index:900;
-  width:148px;
-  transform:translateY(-50%);
-  padding:12px;
-  border:1px solid var(--line);
+  position:absolute;
+  top:22px;
+  right:max(16px,calc((100vw - 1120px)/2));
+  z-index:20;
+  width:188px;
+  padding:13px;
+  border:1px solid rgba(70,88,70,.16);
   border-radius:16px;
-  background:rgba(255,253,249,.94);
-  box-shadow:0 12px 34px rgba(52,45,34,.09);
+  background:rgba(255,253,249,.84);
+  box-shadow:0 10px 30px rgba(52,45,34,.08);
   backdrop-filter:blur(10px);
 }
 .side-menu__group+ .side-menu__group{
-  margin-top:13px;
-  padding-top:12px;
+  margin-top:11px;
+  padding-top:10px;
   border-top:1px solid #e8e1d7;
 }
 .side-menu__label{
   display:block;
   margin:0 0 5px;
   color:#92958e;
-  font-size:.66rem;
+  font-size:.64rem;
   font-weight:850;
   letter-spacing:.09em;
 }
 .side-menu a{
   display:block;
-  padding:6px 7px;
+  padding:5px 7px;
   border-radius:8px;
   color:#4d534b;
   font-size:.78rem;
@@ -370,63 +393,28 @@ h1{
   text-decoration:none;
 }
 .side-menu a:hover{
-  background:var(--paper-2);
+  background:rgba(244,239,229,.9);
   color:var(--green-dark);
 }
-@media(max-width:1399px){
+@media(min-width:901px){
+  .hero__content{padding-right:220px}
+}
+@media(max-width:900px){
   .side-menu{
-    position:sticky;
-    top:8px;
-    left:auto;
-    width:min(1120px,calc(100% - 32px));
-    margin:0 auto 14px;
-    transform:none;
-    display:flex;
-    gap:18px;
-    align-items:flex-start;
-    overflow-x:auto;
-    border-radius:14px;
-  }
-  .side-menu__group{
-    display:flex;
-    flex:0 0 auto;
-    align-items:center;
-    gap:4px;
-  }
-  .side-menu__group+ .side-menu__group{
-    margin-top:0;
-    padding-top:0;
-    padding-left:14px;
-    border-top:0;
-    border-left:1px solid #e8e1d7;
-  }
-  .side-menu__label{
-    margin:0 5px 0 0;
-    white-space:nowrap;
-  }
-  .side-menu a{
-    white-space:nowrap;
+    position:static;
+    width:180px;
+    margin:18px 12px 0 auto;
   }
 }
 @media(max-width:600px){
   .side-menu{
-    top:6px;
-    width:min(100% - 22px,1120px);
-    padding:9px 10px;
-    gap:12px;
+    width:166px;
+    margin-top:14px;
+    margin-right:11px;
+    padding:10px;
   }
-  .side-menu__group{
-    gap:2px;
-  }
-  .side-menu__group+ .side-menu__group{
-    padding-left:10px;
-  }
-  .side-menu a{
-    padding:5px 6px;
-    font-size:.74rem;
-  }
+  .side-menu a{font-size:.74rem}
 }
-
 
 .fall-foliage-map{
   margin-top:16px;
@@ -439,4 +427,46 @@ h1{
   display:block;
   width:100%;
   height:auto;
+}
+
+.camp-reminder{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:0 0 18px;
+  padding:15px 16px;
+  border:1px solid #e6d1b7;
+  border-left:4px solid var(--amber);
+  border-radius:15px;
+  background:#fff7ed;
+}
+.camp-reminder p{
+  margin:4px 0 0;
+  color:#5f584f;
+  font-size:.88rem;
+  line-height:1.55;
+}
+.camp-reminder .text-button{
+  flex:0 0 auto;
+  background:#fff;
+}
+@media(max-width:700px){
+  .camp-reminder{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:10px;
+  }
+}
+
+.camp-reminder__content{min-width:0}
+.camp-reminder__items{
+  display:grid;
+  gap:7px;
+  margin-top:7px;
+}
+.camp-reminder__items p{margin:0}
+.camp-reminder__items strong{
+  color:#4a4036;
+  margin-right:4px;
 }
