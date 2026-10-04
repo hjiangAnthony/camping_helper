@@ -551,10 +551,6 @@
           "text": "路上与徒步零食"
         },
         {
-          "id": "cook-kit",
-          "text": "锅具 / 餐具 / 杯子"
-        },
-        {
           "id": "trash-bags",
           "text": "垃圾袋"
         },
@@ -565,6 +561,14 @@
         {
           "id": "tinder",
           "text": "引火物"
+        },
+        {
+          "id": "table-board",
+          "text": "小桌板"
+        },
+        {
+          "id": "cook-kit",
+          "text": "锅具 / 餐具 / 杯子 / 厨具（剪刀、筷子）"
         }
       ]
     },
@@ -595,6 +599,10 @@
         {
           "id": "bear-locker",
           "text": "食物和有气味物品全部放 bear locker"
+        },
+        {
+          "id": "emergency-contact",
+          "text": "登记紧急联络人和报备"
         }
       ]
     },
