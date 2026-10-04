@@ -357,7 +357,7 @@ h1{
 
 
 .side-menu{
-  position:absolute;
+  position:fixed;
   top:22px;
   right:max(16px,calc((100vw - 1120px)/2));
   z-index:20;
